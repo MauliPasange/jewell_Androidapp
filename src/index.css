@@ -1,0 +1,937 @@
+body,
+html {
+  height: 100%;
+  /* Ensure full height for the body and html */
+  margin: 0;
+  background-color: #ecf0f1;
+  /* font-family: Helvetica Neue, Helvetica, Arial, sans-serif ; */
+  font-family: Calibri;
+}
+
+/* color code- #004348, #badc81, #f9f9f9 */
+
+Link {
+  text-decoration: none;
+}
+
+/* Container for the sidebar and main content */
+.assign-menu-container {
+  display: flex;
+  height: 100vh;
+  /* Full viewport height */
+}
+
+.assign-menu-container.collapsed .main-content {
+  margin-left: 0;
+  /* No offset for collapsed sidebar */
+}
+
+.side-menu {
+  width: 250px;
+  /* Fixed width for the sidebar */
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  height: 100vh;
+  /* Full height of the viewport */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  transition: width 0.3s ease;
+}
+
+.assign-menu-container.collapsed .side-menu {
+  width: 0;
+  /* Collapse sidebar width */
+  overflow: hidden;
+  /* Hide content of collapsed sidebar */
+}
+
+.main-content {
+  /* margin-left: 200px; */
+  padding: 20px;
+  flex: 1;
+  /* Allow content area to take up remaining space */
+  background-color: #ecf0f1;
+  padding-top: 20px;
+  transition: margin-left 0.3s ease;
+  min-height: 100vh;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  scrollbar-width: none;
+  margin-bottom: 50px;
+}
+
+
+/* Content area that scrolls */
+.content-wrapper {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  /* Adjust based on Footer height */
+  overflow-y: auto;
+  flex: 1;
+  scrollbar-width: none;
+}
+
+
+
+.assign-menu-container.collapsed .main-content {
+  margin-left: 0;
+  /* No offset for collapsed sidebar */
+}
+
+/* Button for toggling the sidebar */
+.sidebar-button {
+  float: left;
+  margin-bottom: 10px;
+  background: green;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar-button:hover {
+  background: #228b22;
+  /* Slightly darker green on hover */
+  transform: scale(1.05);
+  /* Slightly enlarge the button */
+}
+
+.sidebar-button:active {
+  transform: scale(0.95);
+  /* Slightly shrink the button on click */
+}
+
+/* Button for logout */
+.logout-button {
+  float: right;
+  background-color: #badc81;
+  color: rgb(13, 49, 73);
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: -3px;
+
+}
+
+.logout-button:hover {
+  /* background-color: rgb(179, 83, 142); */
+  background-color: #a1c561;
+
+  /* Darker red on hover */
+  transform: scale(1.05);
+  /* Slightly enlarge the button  #10A37F */
+}
+
+.logout-button:active {
+  /* background-color: rgb(179, 83, 142); */
+  background-color: #10A37F;
+
+  /* Even darker red on click */
+  transform: scale(0.95);
+  /* Slightly shrink the button */
+}
+
+.submit-button {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
+  /* Slightly darker green on hover */
+  transform: scale(1.05);
+  /* Slightly enlarge the button */
+}
+
+.submit-button:active {
+  background-color: #3d8d41;
+  /* Even darker green on click */
+  transform: scale(0.95);
+  /* Shrink slightly on click */
+}
+
+/* ----------------------------------------Add Component styling start here------------------------------------------- */
+/* add container */
+.Addcustom-container {
+
+  color: #333;
+  width: 100%;
+  height: auto;
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 3px 2px rgba(0, 0, 0, .03);
+  border: 1px solid #e7ecf1;
+}
+
+/* Medium screens (e.g. tablets) */
+@media (min-width: 768px) {
+  .Addcustom-container {
+    width: 70%;
+    /* 70% width on medium screens */
+  }
+}
+
+/* Large screens (e.g. desktops) */
+@media (min-width: 1024px) {
+  .Addcustom-container {
+    width: 50%;
+    /* 50% width on large screens */
+  }
+}
+
+.formSectin-header {
+  color: #0f4c53;
+  font-size: 18px;
+  margin-bottom: 0px;
+}
+
+/* Btn Styling submit and back */
+.custom-btn-primary {
+  padding: 5px 20px;
+  background-color: #5bc0de;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-right: 10px;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  /* Smooth transition */
+  display: inline-block;
+  /* Ensure proper alignment */
+}
+
+.custom-btn-primary:hover {
+  background-color: #31b0d5;
+  /* Darker shade for hover */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  /* Slight zoom effect */
+  transform-origin: center;
+  /* Zoom from the center */
+}
+
+/* Custom styles for secondary button */
+.custom-btn-secondary {
+  padding: 5px 20px;
+  background-color: #e74c3c;
+  /* Different color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  /* Smooth transition */
+  display: inline-block;
+  /* Ensure proper alignment */
+}
+
+.custom-btn-secondary:hover {
+  background-color: #c0392b;
+  /* Darker shade for hover */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  /* Slight zoom effect */
+  transform-origin: center;
+  /* Zoom from the center */
+}
+
+/* Styling for all input and textarea placeholders */
+input::placeholder,
+textarea::placeholder {
+  color: #888;
+  /* Light gray color for placeholder */
+  font-size: 14px;
+  /* Smaller font size */
+  font-style: normal;
+  /* Non-italic placeholder text */
+  font-style: italic;
+}
+
+
+/* Styling for required star next to label */
+.required-star {
+  color: red;
+  font-size: 18px;
+  /* Adjust size as needed */
+  margin-left: 2px;
+  /* Space between label text and the star */
+}
+
+/*Stylling for input fields */
+.input-field {
+  width: 50%;
+  /* Decreased width to 50% */
+  padding: 5px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  display: block;
+  /* Ensures the input field takes up its own line */
+  transition: border-color 0.3s ease;
+  /* Smooth transition for border color */
+}
+
+.input-field:focus {
+  border-color: #9fc9e8;
+  /* Border color on focus */
+  outline: none;
+  /* Removes the default outline */
+  box-shadow: 0 0 3px rgba(159, 201, 232, 0.7);
+  /* Adds a shadow effect on focus */
+}
+
+/* Styling to show error or success message */
+.ShowMsg {
+  text-align: center;
+  color: #228b22;
+  font-size: 14px;
+  margin: 5px;
+}
+
+/* Top level text-Link style */
+.link-style {
+  text-decoration: none;
+  position: relative;
+  /* To position the underline */
+}
+
+.link-text {
+  color: #337ab7;
+  position: relative;
+  /* To ensure the underline is applied only under the text */
+  display: inline-block;
+  font-size: 16px;
+  /* Make sure the span behaves like a block to control the underline */
+}
+
+.link-icon {
+  margin-right: -10px;
+  /* Adds space between the icon and the text */
+  display: inline-block;
+  /* Keeps the icon inline but independent of the text underline */
+  font-size: 2.2em;
+  /* Adjust the size of the icon */
+  vertical-align: middle;
+  /* Aligns the icon vertically with the text */
+}
+
+/* Add smooth underline on hover */
+.link-style:hover .link-text {
+  color: #0056b3;
+  /* Optional: Change the color on hover */
+}
+
+.link-text::after {
+  content: '';
+  /* Creates the underline */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  /* Start with no underline */
+  height: 2px;
+  background-color: #337ab7;
+  /* Underline color */
+  transition: width 0.3s ease-in-out;
+  /* Smooth transition for the underline */
+  font-size: 18px;
+}
+
+.link-style:hover .link-text::after {
+  width: 100%;
+  /* Expand to full width on hover */
+}
+
+/* Navbar styling  */
+.NavBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  /* Ensure it spans across the full width of the screen */
+  height: 50px;
+  background:  #0f4c53;     
+  /* background: #e5dbe4; */
+  z-index: 10;
+  /* Make sure it's above the sidebar */
+  padding: 10px;
+  box-sizing: border-box;
+  /* Prevent padding from affecting layout */
+}
+
+/* Styling for component heading */
+.ComponentHeading {
+  margin-top: 10px;
+  color: #0f4c53;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* ----------------------------------------All Grid Report Component styling start here------------------------------------------- */
+
+.MainGridContainer {
+  /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;        */
+  font-family: Calibri;
+  color: #333;
+  width: 100%;
+  height: auto;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 3px 2px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e7ecf1;
+  position: relative;
+}
+
+.GridContainerHeading {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.GridReportHeader {
+  color: #0f4c53;
+  font-size: 18px;
+}
+
+/* input field lable styling */
+.lableText {
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+}
+
+.labelText {
+  font-style: italic;
+  font-size: 16px;
+}
+
+/* Grid report name click effect start here */
+.GridName{
+  transition: all 0.3s ease;
+}
+
+.GridName:hover {
+  color: #badc81; /* Change color */
+  text-decoration: underline; /* Add underline */
+  
+}
+/* Grid report name click effect ends here */
+
+
+/* Add new button style start here */
+.AddNewButton {
+  padding: 5px 10px;
+  background-color: #5bc0de;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  /* Smooth transition */
+  display: inline-block;
+  /* Ensure proper alignment */
+
+}
+
+.AddNewButton:hover {
+  background-color: #31b0d5;
+  /* Darker shade for hover */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  /* Slight zoom effect */
+  transform-origin: center;
+  /* Zoom from the center */
+}
+
+/* Title styling start here */
+td {
+  position: relative;
+  /* To position the tooltip relative to the td */
+}
+
+.custom-tooltip {
+  visibility: hidden;
+  width: 80px;
+  background-color: #5bc0de;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 2px 0px;
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  top: 100%;
+  /* Position it below the button */
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 0.3s;
+}
+
+button:hover+.custom-tooltip {
+  /* Trigger tooltip when hovering over the button */
+  visibility: visible;
+  opacity: 1;
+ 
+}
+
+/* ------------Grid report table styling starts here -------------*/
+
+.MainGridContainer.TableContainer {
+  max-height: 415px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.MainGridContainer .GridReport-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+
+}
+
+/* Table header */
+.MainGridContainer .GridReport-table thead {
+  background-color: #a7a4a4;
+  text-align: left;
+}
+
+.MainGridContainer .GridReport-table th {
+  padding: 8px 5px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  background: #A5D8D8;
+}
+
+.MainGridContainer .GridReport-table td {
+  padding: 2px 5px;
+  font-size: 16px;
+  color: #555;
+  /* border-top: 1px solid #ddd; */
+}
+
+
+/* Table rows hover effect */
+.MainGridContainer .GridReport-table tr:hover {
+  background-color: #b6b3b3;
+  z-index: 1;
+  /* Ensure it's above other elements */
+}
+
+/* Modify button */
+.MainGridContainer .GridReport-table .btn-outline-warning {
+  border-color: #ffc107;
+  color: #ffc107;
+  padding: 2px 10px;
+  /* Adjust the padding to reduce the button height */
+
+}
+
+.MainGridContainer .GridReport-table .btn-outline-warning:hover {
+  background-color: #ffc107;
+  color: white;
+}
+
+.MainGridContainer .GridReport-table .bi-pencil-square {
+  font-size: 18px;
+}
+
+/* Delete button */
+.MainGridContainer .GridReport-table .btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+}
+
+.MainGridContainer .GridReport-table .btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Ensure button inside the row doesn't block the hover effect */
+.MainGridContainer .GridReport-table td .btn {
+  position: relative;
+  z-index: 0;
+  /* Make sure buttons stay below row hover */
+}
+
+/* Add custom spacing to the table */
+.MainGridContainer .GridReport-table td,
+.MainGridContainer .GridReport-table th {
+  text-align: left;
+}
+
+/* Styling for the button container */
+.MainGridContainer .GridReport-table .btn {
+  cursor: pointer;
+}
+
+
+.MainGridContainer .GridReport-table .btn-outline-warning:hover+.custom-tooltip {
+  display: block;
+}
+
+
+/* Pagination styling start here */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 20px;
+}
+
+.pagination-controls button {
+  padding: 2px 5px;
+  border: none;
+  background-color: #5bc0de;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.pagination-controls button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+/* Paginatin styling ends here */
+
+/* ----------------------------Dentist section start here------------------- */
+
+.add-supplier-container{
+  color: #333;
+  width: 100%;
+  height: auto;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 3px 2px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e7ecf1;
+  /* position: relative; */
+}
+
+.form-container {
+  width: 100%;
+  height: 65vh;
+  overflow: hidden;
+}
+
+.scrollable-form {
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 14px;
+  padding-left: 5px;
+  scrollbar-width: none;
+}
+
+
+.image-previewClass {
+  height: 100px;
+  width: 150px;
+  border-radius: 5px;
+  margin-top: 3px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Input field styling for search functionality start here */
+
+.search-container {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  width: 250px;
+  /* Adjust based on your input width */
+}
+
+.search-input-Field {
+  padding: 5px;
+  font-size: 16px;
+  width: 100%;
+  /* Make sure the input takes full width */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+}
+
+.search-input-Field:focus {
+  border-color: #9fc9e8;
+  /* Border color on focus */
+  outline: none;
+  /* Removes the default outline */
+  box-shadow: 0 0 3px rgba(159, 201, 232, 0.7);
+  /* Adds a shadow effect on focus */
+}
+
+.clear-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #ccc;
+  /* Default color for the icon */
+}
+
+.clear-icon:hover {
+  color: rgb(179, 83, 142);
+  ;
+  /* Change icon color on hover */
+}
+
+/* Input field styling for search functionality start here */
+.DeActivateModal{
+  background:#42494a80 ;
+}       
+
+.DeActivateInfo{
+  color:#137c8a;     
+}
+
+.DeActivateHeading{
+  color: rgb(120 14 72);
+}
+
+.btn-outline-primary{
+    --bs-btn-color: #246071;
+    --bs-btn-border-color: #246071;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #246071;
+    --bs-btn-hover-border-color: #246071;
+    --bs-btn-focus-shadow-rgb: 13, 110, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #246071;
+    --bs-btn-active-border-color: #246071;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #246071;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #246071;
+    --bs-gradient: none;
+
+}
+
+
+
+/* ===================================== Custom css for smart billing starts================================= */
+
+.form-container {
+  width: 100%;
+  height: 65vh;
+  overflow: hidden;
+}
+
+.scrollable-form {
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 14px;
+  padding-left: 5px;
+  scrollbar-width: none;
+}
+
+input.form-control:focus,
+select.form-control:focus,
+textarea.form-control:focus {
+  border-color: #0d6efd !important;
+  box-shadow: 0 0 5px rgba(13, 110, 253, 0.5) !important;
+}
+
+input.form-control:hover,
+select.form-control:hover,
+textarea.form-control:hover {
+  border-color: #000000;
+}
+
+
+/* -----------------------Dashboard section starts here -------------------------------*/
+.add-dashboard-container{
+  color: #333;
+  width: 100%;
+  /* height: auto; */
+  height:80vh;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 3px 2px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e7ecf1;
+  /* position: relative; */
+}
+
+.dashboard-card {
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+}
+
+.dashboard-icon {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 2rem;
+  opacity: 0.2;
+}
+
+/*---------------------------------- Voucher page styling start here--------------------------------------- */
+.voucher-custom-btn {
+  background-color: #ffffff;
+  color: #0986a7;
+  border: 1px solid #0986a7;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.voucher-custom-btn:hover {
+  background-color: #e0f3f7;
+  color: #07627d;
+}
+
+.voucher-custom-btn.selected {
+  background-color: #07627d;
+  color: white;
+}
+
+.voucher-fade-section {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Table container spacing */
+.voucher-table {
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  font-size: 14px;
+}
+
+/* Header styling */
+.voucher-table thead th {
+  background-color: #f1f5f9;
+  color: #333;
+  font-weight: 600;
+  border-bottom: 2px solid #dee2e6;
+  text-align: center;
+}
+
+/* Cell styling */
+.voucher-table tbody td {
+  padding: 12px;
+  vertical-align: middle;
+  text-align: center;
+  border-color: #e3e6ea;
+}
+
+/* Row hover effect */
+.voucher-table tbody tr:hover {
+  background-color: #f9fcff;
+}
+
+/* Badge spacing */
+.voucher-badge {
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 12px;
+}
+
+
+/* ---------------------Voucher styling ends here ------------------------------*/
+
+
+/* -----------------------------------------------Grid table ----------------------------------------------------------- */
+
+.voucher-row {
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #e5e7eb;
+  position: relative;
+  margin: 0;
+  cursor: pointer;
+}
+
+.voucher-row:last-child {
+  border-bottom: none;
+}
+
+.voucher-row:hover {
+  background-color: #f4f5f7;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+  border-radius: 4px;
+  z-index: 10;
+}
+
+.voucher-row::before,
+.voucher-row::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 8px;
+  z-index: 1;
+}
+
+.voucher-row::before {
+  top: -8px;
+}
+
+.voucher-row::after {
+  bottom: -8px;
+}
+
+
+/* Footer */
+
+footer {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background-color: #343a40; /* Bootstrap's bg-dark color */
+  z-index: 9999;
+}
+
