@@ -284,7 +284,7 @@ export default function AllInward() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredItems = inwardItems.filter(item =>
-    item.supplierName.toLowerCase().includes(searchTerm.toLowerCase())
+    item.itemName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredItems.length / rowsPerPage);

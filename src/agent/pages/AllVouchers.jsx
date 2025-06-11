@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import VoucherDetailModal from "../modal/VoucherDetailModal";
 
+import report from "../../assets/img/report.png";
+
 export default function AllVouchers() {
   const [formData, setFormData] = useState({
     itemName: "",
@@ -16,10 +18,14 @@ export default function AllVouchers() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedVoucher, setSelectedVoucher] = useState(null);
 
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
+
+  const [searchTerm, setSearchTerm] = useState("");
   const vouchers = [
     {
+      number: 1,
       id: "v001",
-      voucherNo: "VC001",
+      voucherNo: "VCH-001",
       itemName: "Gems",
       shape: "Round",
       color: "Black",
@@ -29,8 +35,9 @@ export default function AllVouchers() {
       remark: "Urgent delivery",
     },
     {
+      number: 2,
       id: "v002",
-      voucherNo: "VC002",
+      voucherNo: "VCH-002",
       itemName: "Pearls",
       shape: "Oval",
       color: "Yellow",
@@ -40,8 +47,9 @@ export default function AllVouchers() {
       remark: "Regular delivery",
     },
     {
+      number: 3,
       id: "v003",
-      voucherNo: "VC003",
+      voucherNo: "VCH-003",
       itemName: "Stones",
       shape: "Square",
       color: "Blue",
@@ -51,8 +59,9 @@ export default function AllVouchers() {
       remark: "High priority",
     },
     {
+      number: 4,
       id: "v004",
-      voucherNo: "VC004",
+      voucherNo: "VCH-004",
       itemName: "Gems",
       shape: "Round",
       color: "Green",
@@ -62,8 +71,9 @@ export default function AllVouchers() {
       remark: "High priority",
     },
     {
+      number: 5,
       id: "v005",
-      voucherNo: "VC005",
+      voucherNo: "VCH-005",
       itemName: "Pearls",
       shape: "Square",
       color: "White",
@@ -73,8 +83,9 @@ export default function AllVouchers() {
       remark: "Urgent delivery",
     },
     {
+      number: 6,
       id: "v006",
-      voucherNo: "VC006",
+      voucherNo: "VCH-006",
       itemName: "Stones",
       shape: "Oval",
       color: "Gray",
@@ -84,8 +95,9 @@ export default function AllVouchers() {
       remark: "Regular delivery",
     },
     {
+      number: 7,
       id: "v007",
-      voucherNo: "VC007",
+      voucherNo: "VCH-007",
       itemName: "Diamonds",
       shape: "Princess",
       color: "Clear",
@@ -95,8 +107,9 @@ export default function AllVouchers() {
       remark: "Special order",
     },
     {
+      number: 8,
       id: "v008",
-      voucherNo: "VC008",
+      voucherNo: "VCH-008",
       itemName: "Emeralds",
       shape: "Octagon",
       color: "Green",
@@ -106,8 +119,9 @@ export default function AllVouchers() {
       remark: "Client meeting",
     },
     {
+      number: 9,
       id: "v009",
-      voucherNo: "VC009",
+      voucherNo: "VCH-009",
       itemName: "Rubies",
       shape: "Heart",
       color: "Red",
@@ -117,8 +131,9 @@ export default function AllVouchers() {
       remark: "On hold",
     },
     {
+      number: 10,
       id: "v010",
-      voucherNo: "VC010",
+      voucherNo: "VCH-010",
       itemName: "Sapphires",
       shape: "Pear",
       color: "Blue",
@@ -134,17 +149,30 @@ export default function AllVouchers() {
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; // You can adjust this number
+  const [itemsPerPage, setItemsPerPage] = useState(
+    window.innerWidth <= 768 ? 8 : 10
+  );
   const totalPages = Math.ceil(vouchers.length / itemsPerPage);
 
   const navigate = useNavigate();
 
   // Handle window resize to determine mobile view
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setIsMobile(window.innerWidth <= 768);
+  //   };
+  //   handleResize();
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // Adjust breakpoint as needed
+      const isMobile = window.innerWidth <= 768;
+      setIsMobile(isMobile);
+      setItemsPerPage(isMobile ? 10 : 10);
     };
-    handleResize(); // Set initial value
+
+    handleResize(); // Initial call
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -184,117 +212,285 @@ export default function AllVouchers() {
   };
 
   // Calculate vouchers to display on the current page
+  // const indexOfLastVoucher = currentPage * itemsPerPage;
+  // const indexOfFirstVoucher = indexOfLastVoucher - itemsPerPage;
+  // const currentVouchers = vouchers.slice(
+  //   indexOfFirstVoucher,
+  //   indexOfLastVoucher
+  // );
+  // Filter vouchers based on searchTerm (e.g., by itemName or remark or any field you prefer)
+  const filteredVouchers = vouchers.filter((voucher) =>
+    voucher.itemName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Apply pagination after filtering
   const indexOfLastVoucher = currentPage * itemsPerPage;
   const indexOfFirstVoucher = indexOfLastVoucher - itemsPerPage;
-  const currentVouchers = vouchers.slice(indexOfFirstVoucher, indexOfLastVoucher);
+  const currentVouchers = filteredVouchers.slice(
+    indexOfFirstVoucher,
+    indexOfLastVoucher
+  );
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-   <div className="add-supplier-container">
-  <div className="d-flex justify-content-between" style={{ height: "36px" }}>
-    <p className="ComponentHeading">
-      <i className="bi bi-plus-circle"></i>&nbsp; All Vouchers
-    </p>
-    <button
-      className="btn btn-primary"
-      onClick={() => navigate("/agenthome/add-voucher")}
-    >
-      Add Vouchers
-    </button>
-  </div>
-
-  <hr />
-
-  <div className="bg-white rounded-lg shadow-sm overflow-hidden relative">
-    {/* Removed the isMobile conditional rendering */}
-    {/* Always render the table structure */}
-    <div
-      className="table-responsive text-center"
-      style={{ overflowX: "hidden", height: "60vh" }}
-    >
+    <div className="add-supplier-container">
+      {/* <div
+        className="d-flex justify-content-between"
+        style={{ height: "36px" }}
+      >
+        <p className="ComponentHeading">
+          <i className="bi bi-plus-circle"></i>&nbsp; All Vouchers
+        </p>
+        <button
+          className="btn btn-primary"
+          onClick={() => navigate("/agenthome/add-voucher")}
+        >
+          Add Vouchers
+        </button>
+      </div> */}
       <div
-        className="row fw-bold border-bottom py-2 sticky-top"
+        className="GridContainerHeading"
         style={{
-          top: 0,
-          zIndex: 10,
-          color: "black",
-          backgroundColor: "#c8cbcf",
+          display: "flex",
+          flexDirection: isSmallScreen ? "column" : "row",
+          alignItems: isSmallScreen ? "stretch" : "center",
+          justifyContent: "space-between",
+          gap: "5px",
+          marginBottom: "20px",
+          cursor:"default"
         }}
       >
-        <div className="col">Voucher No</div>
-        <div className="col">Item Name</div>
-        {/* You might want to adjust these classes for smaller screens if they become too cramped */}
-        <div className="col d-none d-sm-flex justify-content-center">Shape</div>
-        <div className="col d-none d-sm-flex justify-content-center">Color</div>
-        <div className="col">Quantity</div>
-        <div className="col">Purchase Price</div>
-        <div className="col">Status</div>
-      </div>
-
-      {currentVouchers.map((voucher, index) => (
-        <div
-          key={index}
-          className="voucher-row row py-2 mx-0 align-items-center"
-          onClick={() => {
-            setSelectedVoucher(voucher);
-            setModalOpen(true);
+        <p
+          className="GridReportHeader-inward"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            fontSize: isSmallScreen ? "20px" : "22px",
+            color: "#0986a7",
+            fontWeight: "600",
+            cursor:"default"
           }}
         >
-          <div className="col">{voucher.voucherNo}</div>
-          <div className="col">{voucher.itemName}</div>
-          {/* Consider making these always visible or adjusting column widths */}
-          <div className="col d-none d-sm-flex justify-content-center">{voucher.shape}</div>
-          <div className="col d-none d-sm-flex justify-content-center">{voucher.color}</div>
-          <div className="col">{voucher.quantity}</div>
-          <div className="col">₹{voucher.purchasePrice}</div>
-          <div className="col">{voucher.status}</div>
-        </div>
-      ))}
-    </div>
+          <img src={report} height={30} width={30} alt="report" />
+          &nbsp; All Vouchers
+        </p>
 
-    {/* Pagination Controls (already updated in previous conversation) */}
-    <div className="d-flex justify-content-center align-items-center py-3">
-      <button
-        className="btn btn-outline-secondary btn-sm me-2"
-        onClick={() => paginate(1)}
-        disabled={currentPage === 1}
-      >
-        First
-      </button>
-      <button
-        className="btn btn-outline-secondary btn-sm me-2"
-        onClick={() => paginate(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
-        &larr;
-      </button>
-      <span className="me-2">
-        Page {currentPage} of {totalPages}
-      </span>
-      <button
-        className="btn btn-outline-secondary btn-sm me-2"
-        onClick={() => paginate(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
-        &rarr;
-      </button>
-      <button
-        className="btn btn-outline-secondary btn-sm"
-        onClick={() => paginate(totalPages)}
-        disabled={currentPage === totalPages}
-      >
-        Last
-      </button>
+        <div
+          className="search-container"
+          style={{
+            display: "flex",
+            width: isSmallScreen ? "100%" : "auto",
+            flex: isSmallScreen ? "1" : "none",
+            gap: "5px",
+          }}
+        >
+          <input
+            type="text"
+            placeholder="Search by Item Name"
+            className="search-input-Field"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{
+              flex: 1,
+              padding: "6px 40px",
+              fontSize: "14px",
+            }}
+          />
+          <button
+            className="clear-icon"
+            onClick={() => setSearchTerm("")}
+            style={{
+              background: "none",
+              border: "none",
+              fontSize: "18px",
+              cursor: "pointer",
+              color: "#555",
+            }}
+          >
+            <i className="bi bi-x-circle"></i>
+          </button>
+        </div>
+
+        <Link
+          to={"/agenthome/add-voucher"}
+          style={{ width: isSmallScreen ? "100%" : "auto" }}
+        >
+          <button
+            className="AddNewButton"
+            style={{
+              width: "100%",
+              padding: "8px 12px",
+              fontSize: "14px",
+            }}
+          >
+            <i className="bi bi-plus-lg"></i> Add New
+          </button>
+        </Link>
+      </div>
+
+      <div className="bg-white rounded-lg shadow-sm overflow-hidden relative">
+        {/* Always render the table structure */}
+        {/* <div
+          className="table-responsive text-center"
+          style={{ overflowX: "hidden", height: "60vh" }}
+        >
+          <div
+            className="row fw-bold border-bottom py-2 sticky-top"
+            style={{
+              top: 0,
+              zIndex: 10,
+              color: "black",
+              backgroundColor: "#c8cbcf",
+            }}
+          >
+            <div className="col">Voucher No</div>
+            <div className="col">Item Name</div>
+            <div className="col d-none d-sm-flex justify-content-center">
+              Shape
+            </div>
+            <div className="col d-none d-sm-flex justify-content-center">
+              Color
+            </div>
+            <div className="col d-none d-sm-flex justify-content-center">
+              Quantity
+            </div>
+            <div className="col d-none d-sm-flex justify-content-center">
+              Purchase Price
+            </div>
+            <div className="col">Status</div>
+          </div>
+
+          {currentVouchers.map((voucher, index) => (
+            <div
+              key={index}
+              className="voucher-row row py-2 mx-0 align-items-center"
+              onClick={() => {
+                setSelectedVoucher(voucher);
+                setModalOpen(true);
+              }}
+            >
+              <div className="col">{voucher.voucherNo}</div>
+              <div className="col">{voucher.itemName}</div>
+              <div className="col d-none d-sm-flex justify-content-center">
+                {voucher.shape}
+              </div>
+              <div className="col d-none d-sm-flex justify-content-center">
+                {voucher.color}
+              </div>
+              <div className="col d-none d-sm-flex justify-content-center">
+                {voucher.quantity}
+              </div>
+              <div className="col d-none d-sm-flex justify-content-center">
+                ₹{voucher.purchasePrice}
+              </div>
+              <div className="col">{voucher.status}</div>
+            </div>
+          ))}
+        </div> */}
+        <div
+          className="table-responsive "
+          // style={{ overflowX: "hidden", height: "60vh" }}
+        >
+          <table className="table table-bordered table-hover mb-0">
+            <thead
+              className="sticky-top"
+              style={{
+                top: 0,
+                zIndex: 10,
+                backgroundColor: "#c8cbcf",
+                color: "black",
+              }}
+            >
+              <tr className="fw-bold">
+                <th>No</th>
+                <th>Voucher No</th>
+                <th>Item Name</th>
+                <th className="d-none d-sm-table-cell">Shape</th>
+                <th className="d-none d-sm-table-cell">Color</th>
+                <th className="d-none d-sm-table-cell">Quantity</th>
+                <th className="d-none d-sm-table-cell">Purchase Price</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentVouchers.map((voucher, index) => (
+                <tr key={index} className="">
+                  <td>{voucher.number}</td>
+                  <td>{voucher.voucherNo}</td>
+                  <td
+                    className="text-primary text-decoration-underline"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setSelectedVoucher(voucher);
+                      setModalOpen(true);
+                    }}
+                  >
+                    {voucher.itemName}
+                  </td>
+                  <td className="d-none d-sm-table-cell">{voucher.shape}</td>
+                  <td className="d-none d-sm-table-cell">{voucher.color}</td>
+                  <td className="d-none d-sm-table-cell">{voucher.quantity}</td>
+                  <td className="d-none d-sm-table-cell">
+                    ₹{voucher.purchasePrice}
+                  </td>
+                  <td>
+                    <span
+                      className={`badge ${
+                        voucher.status === "Active" ? "bg-success" : "bg-danger"
+                      }`}
+                    >
+                      {voucher.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Pagination Controls (already updated in previous conversation) */}
+        <div className="d-flex justify-content-center align-items-center py-3">
+          <button
+            className="btn btn-outline-secondary btn-sm me-2"
+            onClick={() => paginate(1)}
+            disabled={currentPage === 1}
+          >
+            First
+          </button>
+          <button
+            className="btn btn-outline-secondary btn-sm me-2"
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            &larr;
+          </button>
+          <span className="me-2">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            className="btn btn-outline-secondary btn-sm me-2"
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            &rarr;
+          </button>
+          <button
+            className="btn btn-outline-secondary btn-sm"
+            onClick={() => paginate(totalPages)}
+            disabled={currentPage === totalPages}
+          >
+            Last
+          </button>
+        </div>
+      </div>
+      {/* Voucher modal */}
+      <VoucherDetailModal
+        show={modalOpen}
+        onClose={() => setModalOpen(false)}
+        voucher={selectedVoucher}
+      />
     </div>
-  </div>
-  {/* Voucher modal */}
-  <VoucherDetailModal
-    show={modalOpen}
-    onClose={() => setModalOpen(false)}
-    voucher={selectedVoucher}
-  />
-</div>
   );
 }
