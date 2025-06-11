@@ -56,13 +56,13 @@ export default function ItemInward() {
     salePrice: "",
     saleCode: "",
     remarks: "",
-    img: null,
+    img: [],
   });
 
   const [voucherList, setVoucherList] = useState([]);
   const [suppliers] = useState(suppliersData);
   const [msg, setMsg] = useState("");
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState([]);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -278,8 +278,8 @@ export default function ItemInward() {
                   name={name}
                   type={
                     name === "quantity" ||
-                    name === "gst" ||
-                    name.toLowerCase().includes("price")
+                      name === "gst" ||
+                      name.toLowerCase().includes("price")
                       ? "number"
                       : "text"
                   }
@@ -316,28 +316,36 @@ export default function ItemInward() {
               <input
                 type="file"
                 accept="image/*"
+                multiple
                 className="form-control"
                 onChange={(e) => {
-                  const file = e.target.files[0];
-                  setForm((prev) => ({ ...prev, image: file }));
-                  setImagePreview(file ? URL.createObjectURL(file) : null);
+                  const files = Array.from(e.target.files).slice(0, 3); // limit to 3
+                  setForm((prev) => ({ ...prev, image: files }));
+                  setImagePreview(files.map((file) => URL.createObjectURL(file)));
                 }}
               />
+
             </div>
-            {imagePreview && (
-              <div className="col-12 col-md-3 mb-3">
-                <img
-                  src={imagePreview}
-                  alt="Preview"
-                  className="img-thumbnail"
-                  style={{
-                    width: "150px",
-                    maxHeight: "150px",
-                    objectFit: "contain",
-                  }}
-                />
+            {imagePreview.length > 0 && (
+              <div className="row mt-2">
+                {imagePreview.map((src, index) => (
+                  <div className="col-4 col-md-2 mb-3" key={index}>
+                    <img
+                      src={src}
+                      alt={`Preview ${index + 1}`}
+                      className="img-thumbnail"
+                      style={{
+                        width: "150px",
+                        height:"150px",
+                       
+                        objectFit: "contain",
+                      }}
+                    />
+                  </div>
+                ))}
               </div>
             )}
+
           </div>
 
           <div

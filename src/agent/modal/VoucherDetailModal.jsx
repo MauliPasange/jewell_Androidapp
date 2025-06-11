@@ -1,4 +1,5 @@
 import React from 'react';
+import d from '../../assets/img/d.png'
 
 export default function VoucherDetailModal({ show, onClose, voucher }) {
   if (!voucher) return null;
@@ -9,7 +10,8 @@ export default function VoucherDetailModal({ show, onClose, voucher }) {
         <div className="modal-content">
 
           <div className="modal-header">
-            <h5 className="modal-title text-primary">Voucher Details -  {voucher.voucherNo }</h5>
+            <h5 className="modal-title" style={{ color: "#0986a7", fontSize: "22px", fontWeight: "600" }}><img src={d} height={30} width={30}></img>&nbsp; Item Details - {voucher.itemName}</h5>
+            {/* <h5 className="modal-title text-primary">Voucher Details -  {voucher.voucherNo }</h5> */}
             <button type="button" className="btn-close" onClick={onClose}></button>
           </div>
 
@@ -27,7 +29,7 @@ export default function VoucherDetailModal({ show, onClose, voucher }) {
           </div>
 
           <div className="modal-footer justify-content-center">
-            <button className="btn btn-secondary" onClick={onClose}>Close</button>
+            <button className="custom-btn-primary" onClick={onClose}>Close</button>
             {/* <button className="btn btn-success">Print</button> */}
           </div>
 

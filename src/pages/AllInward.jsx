@@ -29,6 +29,7 @@ export default function AllInward() {
       image2: "https://plus.unsplash.com/premium_photo-1681276168422-ebd2d7e95340?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHx8",
       remark: "Premium quality diamond",
       quantity: 10,
+      InhandQuantity:2,
       status: "Active"
     },
     {
@@ -55,6 +56,7 @@ export default function AllInward() {
       image2: "https://plus.unsplash.com/premium_photo-1681276168422-ebd2d7e95340?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHx8",
       remark: "Handcrafted traditional design",
       quantity: 5,
+      InhandQuantity:2,
       status: "Inactive"
     },
     {
@@ -81,6 +83,7 @@ export default function AllInward() {
       image2: "https://plus.unsplash.com/premium_photo-1681276168422-ebd2d7e95340?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHx8",
       remark: "Elegant pearls from Japan",
       quantity: 8,
+      InhandQuantity:2,
       status: "Active"
     },
     {
@@ -107,6 +110,7 @@ export default function AllInward() {
       image2: "https://plus.unsplash.com/premium_photo-1681276168422-ebd2d7e95340?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHx8",
       remark: "Colombian emerald centerpiece",
       quantity: 3,
+      InhandQuantity:2,
       status: "Active"
     },
     {
@@ -133,6 +137,142 @@ export default function AllInward() {
       image2: "https://plus.unsplash.com/premium_photo-1681276168422-ebd2d7e95340?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHx8",
       remark: "Heavy-duty men's chain",
       quantity: 7,
+      InhandQuantity:2,
+      status: "Inactive"
+    },
+     {
+      supplierName: "ABC Jewellers",
+      voucherNo: "VCH-001",
+      date: "2025-06-01",
+      itemName: "Diamond Ring",
+      subItemName: "Solitaire Ring",
+      color: "White",
+      shape: "Round",
+      number: "D001",
+      purchasePrice: 5000,
+      purchaseCode: "PUR-001",
+      salePrice: 7500,
+      saleCode: "SAL-001",
+      length: 2,
+      breadth: 2,
+      height: 1,
+      unit: "pcs",
+      hsnCode: "71131910",
+      gst: "3%",
+      image: "https://plus.unsplash.com/premium_photo-1681276170092-446cd1b5b32d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGpld2Vscnl8ZW58MHx8MHx8fDA%3D",
+      image1: "https://plus.unsplash.com/premium_photo-1681276169450-4504a2442173?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDl8fHxlbnwwfHx8fHw%3D",
+      image2: "https://plus.unsplash.com/premium_photo-1681276168422-ebd2d7e95340?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHx8",
+      remark: "Premium quality diamond",
+      quantity: 10,
+      InhandQuantity:2,
+      status: "Active"
+    },
+    {
+      supplierName: "XYZ Traders",
+      voucherNo: "VCH-002",
+      date: "2025-06-03",
+      itemName: "Gold Necklace",
+      subItemName: "Choker",
+      color: "Yellow",
+      shape: "Curved",
+      number: "G002",
+      purchasePrice: 8000,
+      purchaseCode: "PUR-002",
+      salePrice: 11000,
+      saleCode: "SAL-002",
+      length: 15,
+      breadth: 4,
+      height: 1,
+      unit: "gms",
+      hsnCode: "71131920",
+      gst: "3%",
+      image: "https://plus.unsplash.com/premium_photo-1681276170092-446cd1b5b32d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGpld2Vscnl8ZW58MHx8MHx8fDA%3D",
+      image1: "https://plus.unsplash.com/premium_photo-1681276169450-4504a2442173?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDl8fHxlbnwwfHx8fHw%3D",
+      image2: "https://plus.unsplash.com/premium_photo-1681276168422-ebd2d7e95340?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHx8",
+      remark: "Handcrafted traditional design",
+      quantity: 5,
+      InhandQuantity:2,
+      status: "Inactive"
+    },
+    {
+      supplierName: "Sparkle Ltd.",
+      voucherNo: "VCH-003",
+      date: "2025-06-05",
+      itemName: "Pearl Earrings",
+      subItemName: "Drop Earrings",
+      color: "Cream",
+      shape: "Oval",
+      number: "P003",
+      purchasePrice: 2000,
+      purchaseCode: "PUR-003",
+      salePrice: 3200,
+      saleCode: "SAL-003",
+      length: 3,
+      breadth: 2,
+      height: 1,
+      unit: "pcs",
+      hsnCode: "71171100",
+      gst: "3%",
+      image: "https://plus.unsplash.com/premium_photo-1681276170092-446cd1b5b32d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGpld2Vscnl8ZW58MHx8MHx8fDA%3D",
+      image1: "https://plus.unsplash.com/premium_photo-1681276169450-4504a2442173?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDl8fHxlbnwwfHx8fHw%3D",
+      image2: "https://plus.unsplash.com/premium_photo-1681276168422-ebd2d7e95340?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHx8",
+      remark: "Elegant pearls from Japan",
+      quantity: 8,
+      InhandQuantity:2,
+      status: "Active"
+    },
+    {
+      supplierName: "Royal Gems",
+      voucherNo: "VCH-004",
+      date: "2025-06-06",
+      itemName: "Emerald Pendant",
+      subItemName: "Oval Pendant",
+      color: "Green",
+      shape: "Oval",
+      number: "E004",
+      purchasePrice: 6000,
+      purchaseCode: "PUR-004",
+      salePrice: 9000,
+      saleCode: "SAL-004",
+      length: 4,
+      breadth: 3,
+      height: 1.5,
+      unit: "pcs",
+      hsnCode: "71131930",
+      gst: "3%",
+      image: "https://plus.unsplash.com/premium_photo-1681276170092-446cd1b5b32d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGpld2Vscnl8ZW58MHx8MHx8fDA%3D",
+      image1: "https://plus.unsplash.com/premium_photo-1681276169450-4504a2442173?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDl8fHxlbnwwfHx8fHw%3D",
+      image2: "https://plus.unsplash.com/premium_photo-1681276168422-ebd2d7e95340?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHx8",
+      remark: "Colombian emerald centerpiece",
+      quantity: 3,
+      InhandQuantity:2,
+      status: "Active"
+    },
+    {
+      supplierName: "Sunshine Metals",
+      voucherNo: "VCH-005",
+      date: "2025-06-07",
+      itemName: "Platinum Chain",
+      subItemName: "Box Chain",
+      color: "Silver",
+      shape: "Box",
+      number: "PL005",
+      purchasePrice: 12000,
+      purchaseCode: "PUR-005",
+      salePrice: 15000,
+      saleCode: "SAL-005",
+      length: 18,
+      breadth: 0.5,
+      height: 0.2,
+      unit: "gms",
+      hsnCode: "71101100",
+      gst: "3%",
+      image: "https://plus.unsplash.com/premium_photo-1681276170092-446cd1b5b32d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGpld2Vscnl8ZW58MHx8MHx8fDA%3D",
+      image1: "https://plus.unsplash.com/premium_photo-1681276169450-4504a2442173?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDl8fHxlbnwwfHx8fHw%3D",
+      image2: "https://plus.unsplash.com/premium_photo-1681276168422-ebd2d7e95340?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHx8",
+      remark: "Heavy-duty men's chain",
+      quantity: 7,
+      InhandQuantity:2,
       status: "Inactive"
     }
   ];
@@ -144,7 +284,7 @@ export default function AllInward() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredItems = inwardItems.filter(item =>
-    item.supplierName.toLowerCase().includes(searchTerm.toLowerCase())
+    item.itemName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredItems.length / rowsPerPage);
@@ -257,16 +397,16 @@ useEffect(() => {
   </Link>
 </div>
 
-
+<div className='scroll_inward'>
       <div className='TableContainer' style={{ maxHeight: '450px', overflowY: 'auto', scrollbarWidth: "none" }}>
         <table className="table table-bordered GridReport-table-inward">
           <thead style={{ position: "sticky", top: 0, backgroundColor: "#fff", zIndex: 2 }}>
             <tr>
               <th>No.</th>
-              <th>Supplier Name</th>
+             <th>Item Name</th>
               <th>Voucher No.</th>
-              <th className="d-none d-sm-table-cell">Date</th>
-              <th className="d-none d-sm-table-cell">Item Name</th>
+              <th className="d-none d-sm-table-cell">Date</th>       
+               <th  className="d-none d-sm-table-cell">Supplier Name</th>
               <th className="d-none d-sm-table-cell">Quantity</th>
               <th>Status</th>
             </tr>
@@ -275,18 +415,19 @@ useEffect(() => {
             {currentItems.map((item, index) => (
               <tr key={index}>
                 <td>{indexOfFirst + index + 1}</td>
-                <td>{item.supplierName}</td>
-                <td >{item.voucherNo}</td>
-                <td className="d-none d-sm-table-cell">{item.date}</td>
-                <td className="d-none d-sm-table-cell">
+                <td>
                   <span
-                    className="text-primary text-decoration-underline"
+                    className="item-name-link"
                     style={{ cursor: "pointer" }}
                     onClick={() => handleItemClick(item)}
                   >
                     {item.itemName}
                   </span>
                 </td>
+                <td >{item.voucherNo}</td>
+                <td className="d-none d-sm-table-cell">{item.date}</td>
+                
+                <td  className="d-none d-sm-table-cell">{item.supplierName}</td>
 
                 <td className="d-none d-sm-table-cell">{item.quantity}</td>
                 <td>
@@ -308,7 +449,7 @@ useEffect(() => {
         <button onClick={() => goToPage(totalPages)} disabled={currentPage === totalPages}>Last</button>
       </div>
 
-
+</div>
       {/* Modal Component */}
       <ItemDetailsModal
         show={showModal}

@@ -126,7 +126,7 @@ const MainLayout = () => {
         </div> */}
 
         <div
-          className="p-4"
+          className="p-2 p-sm-3"
           style={{
             flex: 1,
             overflowY: "auto",
