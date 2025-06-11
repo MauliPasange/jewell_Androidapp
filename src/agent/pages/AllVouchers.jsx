@@ -133,15 +133,15 @@ export default function AllVouchers() {
 
   return (
     <div className="add-supplier-container">
-      {/* <div style={{ padding: "0px", marginTop: "-15px" }}>
-        <Link to={"/"} className="link-style">
+     <div style={{ padding: "0px", marginTop: "-15px" }}>
+        <Link to={"/agenthome"} className="link-style">
           <span className="link-text">Home</span>
         </Link>
         <Link to={"#"} className="link-style">
           <i className="bi bi-dot link-icon"></i>
           <span className="link-text">All Vouchers</span>
         </Link>
-      </div> */}
+      </div> 
       <div className="d-flex justify-content-between">
         <p className="ComponentHeading">
           <i className="bi bi-plus-circle"></i>&nbsp; All Vouchers

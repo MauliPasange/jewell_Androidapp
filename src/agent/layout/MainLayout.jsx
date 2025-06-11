@@ -24,6 +24,15 @@ const MainLayout = () => {
     }
   }, []);
 
+
+
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setCollapsed(true);
+    }
+  }, []);
+
+
   return (
     <div>
       {/* Top Navbar */}
@@ -72,9 +81,8 @@ const MainLayout = () => {
       <div className="d-flex" style={{ height: "100vh", overflow: "hidden" }}>
         {/* Sidebar */}
         <aside
-          className={`bg-dark text-white border-end sidebar ${
-            collapsed ? "sidebar-collapsed" : ""
-          }`}
+          className={`bg-dark text-white border-end sidebar ${collapsed ? "sidebar-collapsed" : ""
+            }`}
         >
           <div className="list-group list-group-flush">
             <Link
@@ -138,13 +146,28 @@ const MainLayout = () => {
         </aside>
 
         {/* Main Content - Expands automatically */}
-        <div className="p-4" style={{ flex: 1, overflowY: "auto" }}>
+        {/* <div className="p-4" style={{ flex: 1, overflowY: "auto" }}>
+          <Outlet />
+        </div> */}
+
+        <div
+          className="p-4"
+          style={{
+            flex: 1,
+            overflowY: "auto",
+            marginLeft:
+              window.innerWidth >= 768 && !collapsed ? "0px" : "0", // margin only on large screen when sidebar open
+            transition: "margin-left 0.3s ease",
+          }}
+        >
           <Outlet />
         </div>
+
+
       </div>
 
       {/* Footer */}
-      <Footer/>
+      <Footer />
     </div>
   );
 };

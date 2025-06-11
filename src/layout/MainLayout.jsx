@@ -22,6 +22,12 @@ const navigate = useNavigate();
     }
   }, []);
 
+   useEffect(() => {
+    if (window.innerWidth < 768) {
+      setCollapsed(true);
+    }
+  }, []);
+
   return (
     <div>
       {/* Top Navbar */}
@@ -56,7 +62,7 @@ const navigate = useNavigate();
           className={`bg-dark text-white border-end sidebar ${
             collapsed ? "sidebar-collapsed" : ""
           }`}
-          style={{ height: "100vh", position: "relative" }}
+          style={{ height: "100vh" }}
         >
           <div className="list-group list-group-flush">
             <Link
