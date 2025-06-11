@@ -43,38 +43,13 @@ const MainLayout = () => {
         <Link className="navbar-brand" to="/agenthome">
           <b>Smart Billing - Jewell (Agent)</b>
         </Link>
-        {/* <div className="collapse navbar-collapse">
-          <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <Link className="nav-link" to="/">
-                Admin
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin">
-                Supplier
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/masters">Masters</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/orders">Orders</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/inventory">Inventory</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/reports">Reports</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/billing">Billing</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/quotation">Quotation</Link>
-            </li>
-          </ul>
-        </div> */}
+        <div className="collapse navbar-collapse" style={{display:"flex",justifyContent:"flex-end",paddingRight:"2%"}}>
+          <li className="nav-item">
+            <Link to="/logout" className="btn btn-danger" style={{paddingTop:"1%", paddingBottom:"1%"}}>
+              Logout
+            </Link>
+          </li>
+        </div>
       </nav>
 
       {/* Sidebar + Main Content Container */}

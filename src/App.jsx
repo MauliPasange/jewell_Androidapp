@@ -24,6 +24,7 @@ import AgentAddVoucher from "./agent/pages/AddVoucher";
 import PendingRequest from "./pages/PendingRequests";
 import AllVouchers from "./agent/pages/AllVouchers";
 import AllInward from "./pages/AllInward";
+import Logout from "./components/Logout";
 
 
   // local Url
@@ -71,6 +72,7 @@ function App() {
         </Route>
 
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
     </BrowserRouter>
   );

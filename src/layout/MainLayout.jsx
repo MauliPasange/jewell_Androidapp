@@ -4,13 +4,12 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useEffect, useState } from "react";
 import "./Sidebar.css";
-import "../components/Footer"
+import "../components/Footer";
 import Footer from "../components/Footer";
-
 
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const toggleSidebar = () => setCollapsed(!collapsed);
 
   useEffect(() => {
@@ -22,7 +21,7 @@ const navigate = useNavigate();
     }
   }, []);
 
-   useEffect(() => {
+  useEffect(() => {
     if (window.innerWidth < 768) {
       setCollapsed(true);
     }
@@ -38,21 +37,13 @@ const navigate = useNavigate();
         <Link className="navbar-brand" to="/">
           <b>Smart Billing - Jewell (Admin)</b>
         </Link>
-        {/* <div className="collapse navbar-collapse">
-          <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <Link className="nav-link" to="/">
-                Admin
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin">
-                Agent
-              </Link>
-            </li>
-          
-          </ul>
-        </div> */}
+        <div className="collapse navbar-collapse" style={{display:"flex",justifyContent:"flex-end",paddingRight:"2%"}}>
+          <li className="nav-item">
+            <Link to="/logout" className="btn btn-danger" style={{paddingTop:"1%", paddingBottom:"1%"}}>
+              Logout
+            </Link>
+          </li>
+        </div>
       </nav>
 
       {/* Sidebar + Main Content */}
@@ -126,7 +117,7 @@ const navigate = useNavigate();
       </div>
 
       {/* Footer */}
-      <Footer/>
+      <Footer />
     </div>
   );
 };
