@@ -31,7 +31,7 @@ const navigate = useNavigate();
   return (
     <div>
       {/* Top Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4 sticky-top">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4 sticky-top nav-height">
         <button className="btn btn-outline-light me-3" onClick={toggleSidebar}>
           <i className="bi bi-list"></i>
         </button>
@@ -56,7 +56,7 @@ const navigate = useNavigate();
       </nav>
 
       {/* Sidebar + Main Content */}
-      <div className="d-flex">
+      <div className="d-flex main-div-height" style={{ overflow: "hidden" }}>
         {/* Sidebar */}
         <aside
           className={`bg-dark text-white border-end sidebar ${
