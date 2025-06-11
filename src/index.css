@@ -6,12 +6,22 @@ html {
   background-color: #ecf0f1;
   /* font-family: Helvetica Neue, Helvetica, Arial, sans-serif ; */
   font-family: Calibri;
+  overflow-y: hidden;
 }
 
 /* color code- #004348, #badc81, #f9f9f9 */
 
 Link {
   text-decoration: none;
+}
+/* login */
+@media(max-width:576px){
+.custom-login{
+  width: 90% !important;
+}
+.modal-content{
+  margin-top: 100px;
+}
 }
 
 /* Container for the sidebar and main content */
@@ -924,14 +934,22 @@ textarea.form-control:hover {
   bottom: -8px;
 }
 
-
+/* -----------------------------------              Page dimesions                 ------------------------------------------ */
 /* Footer */
 
 footer {
   position: sticky;
   bottom: 0;
   width: 100%;
-  background-color: #343a40; /* Bootstrap's bg-dark color */
-  z-index: 9999;
+  background-color: black; 
+  z-index: 1000;
+  height: 4vh;
 }
 
+.nav-height{
+  height: 7vh;
+}
+
+.main-div-height{
+  height: 89vh;
+}

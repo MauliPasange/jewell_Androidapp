@@ -3,7 +3,7 @@ import React from 'react';
 export default function Footer() {
   return (
     <footer className="bg-dark text-white text-center text-lg-start mt-auto border-top shadow-sm">
-      <div className="text-center p-1" style={{ backgroundColor: '#000000' }}>
+      <div className="text-center p-1">
         © {new Date().getFullYear()}{' '}
         <a 
           href="https://mauli-infotech.co.in/" 

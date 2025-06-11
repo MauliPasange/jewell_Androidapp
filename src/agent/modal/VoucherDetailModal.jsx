@@ -9,7 +9,7 @@ export default function VoucherDetailModal({ show, onClose, voucher }) {
         <div className="modal-content">
 
           <div className="modal-header">
-            <h5 className="modal-title">Voucher Details</h5>
+            <h5 className="modal-title text-primary">Voucher Details -  {voucher.voucherNo }</h5>
             <button type="button" className="btn-close" onClick={onClose}></button>
           </div>
 
@@ -26,9 +26,9 @@ export default function VoucherDetailModal({ show, onClose, voucher }) {
             </ul>
           </div>
 
-          <div className="modal-footer">
+          <div className="modal-footer justify-content-center">
             <button className="btn btn-secondary" onClick={onClose}>Close</button>
-            <button className="btn btn-success">Print</button>
+            {/* <button className="btn btn-success">Print</button> */}
           </div>
 
         </div>

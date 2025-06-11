@@ -86,7 +86,7 @@ export default function Login() {
         {/* Left side - Login Form */}
         <div className="col-md-6 d-flex align-items-center justify-content-center bg-white">
           <div className="w-100 " style={{ maxWidth: "360px" }}>
-            <h2 className="mb-5 text-center text-primary">LOGIN</h2>
+            <h2 className="mb-5 text-center text-primary">LOG IN</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <input
