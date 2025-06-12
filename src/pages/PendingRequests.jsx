@@ -222,7 +222,7 @@ export default function PendingRequest() {
                                         display: "flex",
                                         justifyContent: "center"
                                     }}>
-                                        <button className="custom-btn-primary">Close</button>
+                                        <button className="custom-btn-primary" data-bs-dismiss="modal">Close</button>
                                     </div>
                                      </div>
                                 </>

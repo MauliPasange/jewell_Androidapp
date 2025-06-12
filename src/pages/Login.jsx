@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Img_1 from "../images/img-3.jpg";
 import Hide_Show_Password from "../components/Hide_Show_Password";
 import axios from "axios";
+import { apiConfig } from "../config";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -10,8 +11,13 @@ export default function Login() {
   const [msg, setMsg] = useState("");
   const router = useNavigate();
 
-  const Base_URL = sessionStorage.getItem("Base_URL");
-  const authApiKey = sessionStorage.getItem("authApiKey");
+  // const Base_URL = sessionStorage.getItem("Base_URL") || "https://midbserver.co.in:5001";
+
+  // const authApiKey = sessionStorage.getItem("authApiKey") || "b986ce110c4e7c523882db76b5rft124";
+
+const Base_URL = apiConfig.getBaseURL();
+const authApiKey = apiConfig.getApiKey();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,6 +40,11 @@ export default function Login() {
         setMsg("Password must be 8-16 characters long");
         return;
       }
+
+        if (!Base_URL || !authApiKey) {
+      setMsg("Configuration missing. Please refresh or contact support.");
+      return;
+    }
       const payload = {
         one: username,
         two: password,
