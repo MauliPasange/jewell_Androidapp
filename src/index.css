@@ -967,7 +967,7 @@ footer {
 }
 
 .scroll_inward{
-  max-height: 500px;
+  max-height: 420px;
   overflow-y: auto;
   scrollbar-width: none; /* Firefox */
 }
@@ -991,4 +991,8 @@ footer {
   .scroll_inward {
     max-height: 350px;
   }
+}
+
+.GridReport-table-inward td{
+  padding: 6px;
 }
