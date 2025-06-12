@@ -37,6 +37,7 @@ const MainLayout = () => {
         <Link className="navbar-brand" to="/">
           <b>Smart Billing - Jewell (Admin)</b>
         </Link>
+        
         <div className="collapse navbar-collapse" style={{display:"flex",justifyContent:"flex-end",paddingRight:"2%"}}>
           <li className="nav-item">
             <Link to="/logout" className="btn btn-danger" style={{paddingTop:"1%", paddingBottom:"1%"}}>
@@ -111,7 +112,7 @@ const MainLayout = () => {
         </aside>
 
         {/* Main Content */}
-        <div className="p-4 flex-grow-1">
+        <div className="p-2 p-sm-3 flex-grow-1">
           <Outlet />
         </div>
       </div>
