@@ -100,12 +100,19 @@ const MainLayout = () => {
             </Link>
             <Link to="/item-color-master" className="list-group-item list-group-item-action bg-dark text-white">
               <i className="bi bi-box me-2"></i> Item Color Master
-            </Link> */}
+            </Link> */}   
             <Link
               to="/item-inward"
               className="list-group-item list-group-item-action bg-dark text-white"
             >
               <i className="bi bi-hdd-stack me-2"></i> Item Inward
+            </Link>
+
+            <Link
+              to="/add_delChallan"
+              className="list-group-item list-group-item-action bg-dark text-white"
+            >
+              <i className="bi bi-hdd-stack me-2"></i> Delivery Challan
             </Link>
             {/* <Link to="/supplier-master" className="list-group-item list-group-item-action bg-dark text-white">
               <i className="bi bi-hdd-stack me-2"></i>  Supplier Master

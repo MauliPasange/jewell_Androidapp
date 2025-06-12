@@ -25,6 +25,8 @@ import PendingRequest from "./pages/PendingRequests";
 import AllVouchers from "./agent/pages/AllVouchers";
 import AllInward from "./pages/AllInward";
 import Logout from "./components/Logout";
+import AddDeliveryChallan from "./pages/AddDeliveryChallan";
+import AllDeliveryChallan from "./pages/AllDeliveryChallan";
 
 
   // local Url
@@ -61,6 +63,8 @@ function App() {
           <Route path="add-voucher" element={<AddVoucher />} />
           <Route path="Pending-req" element={<PendingRequest/>} />
           <Route path="all-inward" element={<AllInward/>} />
+          <Route path="add_delChallan" element={<AddDeliveryChallan/>} />
+          <Route path="all_delChallan" element={<AllDeliveryChallan/>} />
         </Route>
 
         {/* Agent Routes */}

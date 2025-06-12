@@ -6,6 +6,24 @@ export default function PendingRequest() {
     const [selectedStatus, setSelectedStatus] = useState('Pending');
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedItem, setSelectedItem] = useState(null);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+
+    const handleApprove = (item) => {
+        // ✅ You can also call an API here if needed
+        console.log("Approved:", item.voucherNo);
+
+        // Hide the first modal
+        const bootstrapModalEl = document.getElementById('detailsModal');
+        const modal = bootstrap.Modal.getInstance(bootstrapModalEl);
+        if (modal) modal.hide();
+
+        // Show success modal
+        setTimeout(() => {
+            setShowSuccessModal(true);
+        }, 500); // delay to avoid modal conflict
+    };
+
 
     const data = {
         Pending: [
@@ -198,12 +216,12 @@ export default function PendingRequest() {
 
                 {/* Bootstrap Modal */}
                 <div className="modal fade" id="detailsModal" tabIndex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-dialog-centered" style={{marginTop:"-15px"}}>
+                    <div className="modal-dialog modal-dialog-centered" style={{ marginTop: "-15px" }}>
                         <div className="modal-content">
                             {selectedItem && (
                                 <>
                                     <div className="modal-header">
-                                        <h5 className="modal-title" id="detailsModalLabel" style={{color:"#0986a7"}}><img src={d} height={30} width={30}></img> &nbsp;{selectedItem.supplierName}-{selectedItem.voucherNo}</h5>
+                                        <h5 className="modal-title" id="detailsModalLabel" style={{ color: "#0986a7" }}><img src={d} height={30} width={30}></img> &nbsp;{selectedItem.supplierName}-{selectedItem.voucherNo}</h5>
                                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div className="modal-body">
@@ -217,14 +235,19 @@ export default function PendingRequest() {
                                         <p><strong>Date:</strong> {selectedItem.date}</p>
                                         <p><strong>Status:</strong> {selectedItem.status}</p>
                                         <p><strong>Remark:</strong> {selectedItem.remark}</p>
-                                   
-                                    <div style={{
-                                        display: "flex",
-                                        justifyContent: "center"
-                                    }}>
-                                        <button className="custom-btn-primary" data-bs-dismiss="modal">Close</button>
+
+                                        <div style={{
+                                            display: "flex",
+                                            justifyContent: "center", gap: "10px"
+                                        }}>
+                                            {selectedItem.status === "Pending" && (
+                                                <button className="custom-btn-secondary" onClick={() => handleApprove(selectedItem)}>
+                                                    Approve
+                                                </button>
+                                            )}
+                                            <button className="custom-btn-primary" data-bs-dismiss="modal">Close</button>
+                                        </div>
                                     </div>
-                                     </div>
                                 </>
                             )}
                         </div>
@@ -232,6 +255,40 @@ export default function PendingRequest() {
                 </div>
             </table>
 
+            {/* ✅ Success Modal */}
+            <div
+                className={`modal fade ${showSuccessModal ? 'show d-block' : ''}`}
+                tabIndex="-1"
+                style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+            >
+                <div className="modal-dialog"  style={{ marginTop: "100px" }}>
+                    <div className="modal-content">
+                        <div className="modal-header justify-content-center position-relative">
+<h5 className="modal-title text-center w-100" style={{ color: "#28a745", fontSize: "22px", fontWeight: "600" }}>
+  {selectedItem ? `${selectedItem.supplierName} - ${selectedItem.voucherNo}` : ''}
+</h5>
+                            <button
+                                type="button"
+                                className="btn-close position-absolute end-0 me-3"
+                                onClick={() => setShowSuccessModal(false)}
+                            ></button>
+                        </div>
+
+                        <div className="modal-body text-center">
+                            <p><strong>Request approved successfully!</strong></p>
+                            <button
+                                className="btn btn-success"
+                                onClick={() => setShowSuccessModal(false)}
+
+                            >
+                                OK
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
     );
 }
