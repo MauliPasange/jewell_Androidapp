@@ -24,7 +24,10 @@ export default function ItemDetailsModal({ show, item, onClose }) {
             tabIndex="-1"
             style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
         >
-            <div className="modal-dialog modal-xl" style={{ width: "50%" }}>
+            <div className="modal-dialog " style={{
+    width: window.innerWidth >= 992 ? '50%' : '100%',
+    maxWidth: '100%'
+  }}>
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" style={{ color: "#0986a7", fontSize: "22px", fontWeight: "600" }}><img src={d} height={30} width={30}></img>&nbsp; Item Details - {item.itemName}</h5>
