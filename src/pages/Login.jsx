@@ -63,6 +63,7 @@ const authApiKey = apiConfig.getApiKey();
         // Store essential info in sessionStorage
         sessionStorage.setItem("em_id", data.em_id);
         sessionStorage.setItem("portal_id", data.portal_id);
+        sessionStorage.setItem("username", username);
 
         setMsg("Login successful!");
 
