@@ -264,9 +264,9 @@ export default function PendingRequest() {
                 <div className="modal-dialog"  style={{ marginTop: "100px" }}>
                     <div className="modal-content">
                         <div className="modal-header justify-content-center position-relative">
-                            <h5 className="modal-title text-center w-100" style={{ color: "#28a745", fontSize: "22px", fontWeight: "600" }}>
-                                {selectedItem.supplierName} - {selectedItem.voucherNo}
-                            </h5>
+<h5 className="modal-title text-center w-100" style={{ color: "#28a745", fontSize: "22px", fontWeight: "600" }}>
+  {selectedItem ? `${selectedItem.supplierName} - ${selectedItem.voucherNo}` : ''}
+</h5>
                             <button
                                 type="button"
                                 className="btn-close position-absolute end-0 me-3"
