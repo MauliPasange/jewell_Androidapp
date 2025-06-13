@@ -22,6 +22,10 @@ export default function VoucherDetailModal({ show, onClose, voucher }) {
               <li className="list-group-item"><strong>Item Shape:</strong> {voucher.shape}</li>
               <li className="list-group-item"><strong>Item Color:</strong> {voucher.color}</li>
               <li className="list-group-item"><strong>Quantity:</strong> {voucher.quantity}</li>
+              <li className="list-group-item"><strong>Return Quantity:</strong> {voucher.returnQuantity }</li>
+              <li className="list-group-item"><strong>Reason:</strong> {voucher.reason }</li>
+              <li className="list-group-item"><strong>Actual Quantity Delivered:</strong> {voucher.actualQuantityDelivered }</li>
+
               <li className="list-group-item"><strong>Purchase Price:</strong> ₹{voucher.purchasePrice}</li>
               <li className="list-group-item"><strong>Status:</strong> {voucher.status }</li>
               <li className="list-group-item"><strong>Remark:</strong> {voucher.remark }</li>
