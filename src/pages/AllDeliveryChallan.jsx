@@ -17,7 +17,8 @@ export default function AllDeliveryChallan() {
       remainingPayment: 7000,
       date: "2025-06-12",
       timePeriod: "7 Days",
-      remark: "Urgent delivery"
+      remark: "Urgent delivery",
+      status:"Active"
     },
     {
       customer: "Shivam Traders",
@@ -31,7 +32,8 @@ export default function AllDeliveryChallan() {
       remainingPayment: 1500,
       date: "2025-06-11",
       timePeriod: "3 Days",
-      remark: ""
+      remark: "",
+      status:"Inactive"
     },
     {
       customer: "Mahadev Exports",
@@ -45,7 +47,8 @@ export default function AllDeliveryChallan() {
       remainingPayment: 4000,
       date: "2025-06-10",
       timePeriod: "10 Days",
-      remark: "Partial payment done"
+      remark: "Partial payment done",
+      status:"Active"
     }
   ];
 
@@ -167,8 +170,8 @@ export default function AllDeliveryChallan() {
                   <td className="d-none d-sm-table-cell">{item.date}</td>
                   <td className="d-none d-sm-table-cell">{item.timePeriod}</td>
                   <td>
-                    <span className={`badge ${item.remark ? "bg-success" : "bg-secondary"}`}>
-                      {item.remark || "No Remark"}
+                    <span className={`badge ${item.status==='Active' ? "bg-success" : "bg-danger"}`}>
+                      {item.status || "No Status"}
                     </span>
                   </td>
                 </tr>

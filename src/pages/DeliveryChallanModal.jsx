@@ -32,7 +32,7 @@ export default function DeliveryChallanModal({ show, item, onClose }) {
           <div className="modal-header">
             <h5
               className="modal-title"
-              style={{ color: '#0986a7', fontSize: '22px', fontWeight: '600' }}
+              style={{color: '#0986a7', fontSize: '22px', fontWeight: '600' }}
             >
               <img src={d} height={30} width={30} alt="icon" />
               &nbsp; Delivery Challan - {item.itemName}
@@ -49,6 +49,7 @@ export default function DeliveryChallanModal({ show, item, onClose }) {
                   </div>
                 ))}
               </div>
+             
 
               <div className="col-md-6">
                 {rightFields.map((key, index) => (
