@@ -24,7 +24,7 @@ const MainLayout = () => {
     }
   }, []);
 
-
+  const username = sessionStorage.getItem("username") || "Agent";
 
   useEffect(() => {
     if (window.innerWidth < 768) {
@@ -32,23 +32,34 @@ const MainLayout = () => {
     }
   }, []);
 
-
   return (
     <div>
       {/* Top Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4  sticky-top nav-height">
-        <button className="btn btn-outline-light me-3" onClick={toggleSidebar}>
-          <i className="bi bi-list"></i>
-        </button>
-        <Link className="navbar-brand" to="/agenthome">
-          <b>Smart Billing - Jewell (Agent)</b>
-        </Link>
-        <div className="collapse navbar-collapse" style={{display:"flex",justifyContent:"flex-end",paddingRight:"2%"}}>
-          <li className="nav-item">
-            <Link to="/logout" className="btn btn-danger" style={{paddingTop:"1%", paddingBottom:"1%"}}>
-              Logout
-            </Link>
-          </li>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4 sticky-top nav-height">
+        <div className="container-fluid">
+          <button
+            className="btn btn-outline-light me-3"
+            onClick={toggleSidebar}
+          >
+            <i className="bi bi-list"></i>
+          </button>
+
+          <Link
+            className="navbar-brand me-auto d-none d-sm-inline"
+            to="/agenthome"
+          >
+            <b>Smart Billing - Jewell ({username})</b>
+          </Link>
+          <Link
+            className="navbar-brand me-auto d-block d-sm-none"
+            to="/agenthome"
+          >
+            Welcome<b> ({username})</b>
+          </Link>
+
+          <Link to="/logout" className="btn btn-danger btn-sm">
+            Logout
+          </Link>
         </div>
       </nav>
 
@@ -56,8 +67,9 @@ const MainLayout = () => {
       <div className="d-flex main-div-height" style={{ overflow: "hidden" }}>
         {/* Sidebar */}
         <aside
-          className={`bg-dark text-white border-end sidebar ${collapsed ? "sidebar-collapsed" : ""
-            }`}
+          className={`bg-dark text-white border-end sidebar ${
+            collapsed ? "sidebar-collapsed" : ""
+          }`}
         >
           <div className="list-group list-group-flush">
             <Link
@@ -130,15 +142,12 @@ const MainLayout = () => {
           style={{
             flex: 1,
             overflowY: "auto",
-            marginLeft:
-              window.innerWidth >= 768 && !collapsed ? "0px" : "0", // margin only on large screen when sidebar open
+            marginLeft: window.innerWidth >= 768 && !collapsed ? "0px" : "0", // margin only on large screen when sidebar open
             transition: "margin-left 0.3s ease",
           }}
         >
           <Outlet />
         </div>
-
-
       </div>
 
       {/* Footer */}

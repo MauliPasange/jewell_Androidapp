@@ -21,6 +21,8 @@ const MainLayout = () => {
     }
   }, []);
 
+  const username = sessionStorage.getItem("username") || "Admin";
+
   useEffect(() => {
     if (window.innerWidth < 768) {
       setCollapsed(true);
@@ -31,19 +33,25 @@ const MainLayout = () => {
     <div>
       {/* Top Navbar */}
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4 sticky-top nav-height">
-        <button className="btn btn-outline-light me-3" onClick={toggleSidebar}>
-          <i className="bi bi-list"></i>
-        </button>
-        <Link className="navbar-brand" to="/">
-          <b>Smart Billing - Jewell (Admin)</b>
-        </Link>
-        
-        <div className="collapse navbar-collapse" style={{display:"flex",justifyContent:"flex-end",paddingRight:"2%"}}>
-          <li className="nav-item">
-            <Link to="/logout" className="btn btn-danger" style={{paddingTop:"1%", paddingBottom:"1%"}}>
-              Logout
-            </Link>
-          </li>
+        <div className="container-fluid">
+          <button
+            className="btn btn-outline-light me-3"
+            onClick={toggleSidebar}
+          >
+            <i className="bi bi-list"></i>
+          </button>
+
+          <Link className="navbar-brand me-auto d-none d-sm-inline" to="/">
+            <b>Smart Billing - Jewell ({username})</b>
+          </Link>
+
+          <Link className="navbar-brand me-auto d-block d-sm-none" to="/">
+            Welcome <b>({username})</b>
+          </Link>
+
+          <Link to="/logout" className="btn btn-danger btn-sm">
+            Logout
+          </Link>
         </div>
       </nav>
 
