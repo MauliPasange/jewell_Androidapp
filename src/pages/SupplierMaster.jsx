@@ -125,7 +125,7 @@ export default function SupplierMaster() {
 
       console.log("response", response.data);
 
-      if (response.data === "Success") {
+      if (response.status == "200") {
         setMsg(`${formData.supplierName} Supplier Added Successfully.`);
         setFormData({
           supplierName: "",
@@ -144,7 +144,7 @@ export default function SupplierMaster() {
           pancard: "",
           extraInfo: "",
         });
-        // navigate('/all-suppliers');
+        navigate('/all-suppliers');
       } else {
         setMsg("Failed to add supplier. Please try again.");
       }
