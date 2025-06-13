@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import purchase from '../assets/img/purchase.png';
 import d from '../assets/img/d.png'
+import ReturnModal from './ReturnModal';
 
 export default function PendingRequest() {
     const [selectedStatus, setSelectedStatus] = useState('Pending');
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedItem, setSelectedItem] = useState(null);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [showReturnModal, setShowReturnModal] = useState(false);
+    const [showRejectModal, setShowRejectModal] = useState(false);
+
+
 
 
     const handleApprove = (item) => {
@@ -22,6 +27,20 @@ export default function PendingRequest() {
         setTimeout(() => {
             setShowSuccessModal(true);
         }, 500); // delay to avoid modal conflict
+    };
+
+    const handleReject = (item) => {
+        console.log("Rejected:", item.voucherNo);
+
+        // Hide the first modal
+        const bootstrapModalEl = document.getElementById('detailsModal');
+        const modal = bootstrap.Modal.getInstance(bootstrapModalEl);
+        if (modal) modal.hide();
+
+        // Show reject success modal after short delay
+        setTimeout(() => {
+            setShowRejectModal(true);
+        }, 500);
     };
 
 
@@ -236,17 +255,27 @@ export default function PendingRequest() {
                                         <p><strong>Status:</strong> {selectedItem.status}</p>
                                         <p><strong>Remark:</strong> {selectedItem.remark}</p>
 
-                                        <div style={{
-                                            display: "flex",
-                                            justifyContent: "center", gap: "10px"
-                                        }}>
+                                        <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
                                             {selectedItem.status === "Pending" && (
-                                                <button className="custom-btn-secondary" onClick={() => handleApprove(selectedItem)}>
-                                                    Approve
-                                                </button>
+                                                <>
+                                                    <button className="custom-btn-primary" onClick={() => handleApprove(selectedItem)}>
+                                                        Approve
+                                                    </button>
+                                                    <button className="custom-btn-secondary" onClick={() => handleReject(selectedItem)}>
+                                                        Reject
+                                                    </button>
+                                                    <button className="custom-btn-primary" onClick={() => {
+                                                        const modal = bootstrap.Modal.getInstance(document.getElementById('detailsModal'));
+                                                        if (modal) modal.hide();
+                                                        setShowReturnModal(true);
+                                                    }}>
+                                                        Return
+                                                    </button>
+                                                </>
                                             )}
-                                            <button className="custom-btn-primary" data-bs-dismiss="modal">Close</button>
+                                            <button className="custom-btn-secondary" data-bs-dismiss="modal">Close</button>
                                         </div>
+
                                     </div>
                                 </>
                             )}
@@ -261,12 +290,12 @@ export default function PendingRequest() {
                 tabIndex="-1"
                 style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
             >
-                <div className="modal-dialog"  style={{ marginTop: "100px" }}>
+                <div className="modal-dialog" style={{ marginTop: "100px" }}>
                     <div className="modal-content">
                         <div className="modal-header justify-content-center position-relative">
-<h5 className="modal-title text-center w-100" style={{ color: "#28a745", fontSize: "22px", fontWeight: "600" }}>
-  {selectedItem ? `${selectedItem.supplierName} - ${selectedItem.voucherNo}` : ''}
-</h5>
+                            <h5 className="modal-title text-center w-100" style={{ color: "#28a745", fontSize: "22px", fontWeight: "600" }}>
+                                {selectedItem ? `${selectedItem.supplierName} - ${selectedItem.voucherNo}` : ''}
+                            </h5>
                             <button
                                 type="button"
                                 className="btn-close position-absolute end-0 me-3"
@@ -287,6 +316,44 @@ export default function PendingRequest() {
                     </div>
                 </div>
             </div>
+            {/* ❌ Reject Success Modal */}
+            <div
+                className={`modal fade ${showRejectModal ? 'show d-block' : ''}`}
+                tabIndex="-1"
+                style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+            >
+                <div className="modal-dialog" style={{ marginTop: "100px" }}>
+                    <div className="modal-content">
+                        <div className="modal-header justify-content-center position-relative">
+                            <h5 className="modal-title text-center w-100" style={{ color: "#dc3545", fontSize: "22px", fontWeight: "600" }}>
+                                {selectedItem ? `${selectedItem.supplierName} - ${selectedItem.voucherNo}` : ''}
+                            </h5>
+                            <button
+                                type="button"
+                                className="btn-close position-absolute end-0 me-3"
+                                onClick={() => setShowRejectModal(false)}
+                            ></button>
+                        </div>
+
+                        <div className="modal-body text-center">
+                            <p><strong>Request rejected successfully!</strong></p>
+                            <button
+                                className="btn btn-danger"
+                                onClick={() => setShowRejectModal(false)}
+                            >
+                                OK
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ReturnModal
+                show={showReturnModal}
+                onClose={() => setShowReturnModal(false)}
+                item={selectedItem}
+            />
+
 
         </div>
 
