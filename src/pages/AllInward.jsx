@@ -412,7 +412,7 @@ useEffect(() => {
   >
     <input
       type="text"
-      placeholder="Search by Supplier Name"
+      placeholder="Search by Item Name"
       className="search-input-Field"
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
