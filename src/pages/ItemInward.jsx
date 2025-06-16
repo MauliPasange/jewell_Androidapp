@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios"; // make sure axios is installed
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { apiConfig } from "../../src/config";
+
 
 // Sample supplier and voucher data (replace with API later)
 const suppliersData = [
@@ -37,6 +40,7 @@ const suppliersData = [
 export default function ItemInward() {
   const [form, setForm] = useState({
     date: "",
+    supplierId: "",
     supplierName: "",
     voucherNo: "",
     itemName: "",
@@ -60,9 +64,11 @@ export default function ItemInward() {
   });
 
   const [voucherList, setVoucherList] = useState([]);
-  const [suppliers] = useState(suppliersData);
+const [suppliers, setSuppliers] = useState([]);
   const [msg, setMsg] = useState("");
   const [imagePreview, setImagePreview] = useState([]);
+  const Base_URL = apiConfig.getBaseURL();
+  const authApiKey = apiConfig.getApiKey();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -70,43 +76,136 @@ export default function ItemInward() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSupplierChange = (e) => {
-    const supplierName = e.target.value;
-    const selectedSupplier = suppliers.find(
-      (s) => s.supplierName === supplierName
+ useEffect(() => {
+
+  const fetchSuppliers = async () => {
+    try {
+      const response = await axios.get(`${Base_URL}/inward/getActiveSuppliers`, {
+        headers: {
+          "x-api-key": authApiKey,
+        },
+      });
+      setSuppliers(response.data.data); // adjust this if your API response shape is different
+      console.log(response.data.data);
+      
+    } catch (error) {
+      console.error("Failed to fetch suppliers:", error);
+    }
+  };
+
+  fetchSuppliers();
+}, []);
+
+
+
+const handleSupplierChange = async (e) => {
+  const supplierId = e.target.value;
+  const selectedSupplier = suppliers.find((s) => s.jew_sup_id == supplierId);
+
+  setForm((prev) => ({
+    ...prev,
+    supplierId,
+    supplierName: selectedSupplier?.supplierName || "",
+    voucherNo: "",
+    itemName: "",
+    itemShape: "",
+    itemColor: "",
+  }));
+
+  try {
+  //  const authApiKey = sessionStorage.getItem("APIKEY");
+  
+    const response = await axios.post(
+      `${Base_URL}/inward/getVouchersBySupplierId`,{ id: supplierId },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": authApiKey,
+        },
+      }
     );
 
-    setForm((prev) => ({
-      ...prev,
-      supplierName,
-      voucherNo: "",
-      itemName: "",
-      itemShape: "",
-      itemColor: "",
-    }));
+    setVoucherList(response.data.data); // adjust this based on your actual API response jew_voucher
+  } catch (error) {
+    console.error("Error fetching vouchers:", error);
+    setVoucherList([]);
+  }
+};
 
-    setVoucherList(selectedSupplier ? selectedSupplier.vouchers : []);
-  };
+const handleVoucherChange = (e) => {
+  const voucherId = e.target.value;
+  const selectedVoucher = voucherList.find((v) => v.jew_vou_id == voucherId);
 
-  const handleVoucherChange = (e) => {
-    const voucherNo = e.target.value;
-    const selectedVoucher = voucherList.find((v) => v.voucherNo === voucherNo);
+  setForm((prev) => ({
+    ...prev,
+    voucherNo: voucherId, // this fixes the selected option display
+    itemName: selectedVoucher?.item_name || "",
+    itemShape: selectedVoucher?.shape_name || "",
+    itemColor: selectedVoucher?.color_name || "",
+  }));
+};
 
-    setForm((prev) => ({
-      ...prev,
-      voucherNo,
-      itemName: selectedVoucher?.itemName || "",
-      itemShape: selectedVoucher?.itemShape || "",
-      itemColor: selectedVoucher?.itemColor || "",
-    }));
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Item Inward submitted:", form);
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    let uploadedImagePaths = [];
+
+    if (form.img && form.img.length > 0) {
+      const imageFormData = new FormData();
+      form.img.forEach((file) => imageFormData.append("files", file));
+
+      const imageUploadResponse = await axios.post(
+        `${Base_URL}/img/upload`,
+        imageFormData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "x-api-key": authApiKey,
+          },
+        }
+      );
+
+      uploadedImagePaths = imageUploadResponse.data.paths; // e.g., ["img1.jpg", "img2.jpg"]
+    }
+
+    const payload = {
+      one: form.itemName,
+      two: form.itemShape,
+      three: form.itemColor,
+      four: form.subItemName,
+      five: form.number,
+      six: form.length,
+      seven: form.breadth,
+      eight: form.height,
+      nine: form.quantity,
+      ten: form.unit,
+      eleven: form.hsnCode,
+      twelve: form.gst + "%",
+      thirteen: parseFloat(form.purchasePrice),
+      fourteen: form.purchaseCode,
+      fifteen: parseFloat(form.salePrice),
+      sixteen: form.saleCode,
+      seventeen: form.supplierName,
+      eighteen: form.remarks,
+      nineteen: uploadedImagePaths[0] || "",
+      twenty: uploadedImagePaths[1] || "",
+      twentyone: uploadedImagePaths[2] || "",
+      twentytwo: 1
+    };
+
+    await axios.post(`${Base_URL}/inward/addInwardItem`, payload, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": authApiKey,
+      },
+    });
+
     setMsg("Saved successfully!");
     setForm({
       date: "",
+      supplierId: "",
       supplierName: "",
       voucherNo: "",
       itemName: "",
@@ -126,11 +225,18 @@ export default function ItemInward() {
       salePrice: "",
       saleCode: "",
       remarks: "",
-      image: null,
+      img: [],
     });
+    setImagePreview([]);
     setVoucherList([]);
     setTimeout(() => setMsg(""), 3000);
-  };
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    alert("Failed to submit.");
+  }
+};
+
+
 
   // Handle "Back" button click
   const handleBackClick = () => {
@@ -174,23 +280,26 @@ export default function ItemInward() {
               />
             </div>
 
-            <div className="col-12 col-md-3">
+          
+
+  <div className="col-12 col-md-3">
               <label className="labelText">Select Supplier</label>
               <span className="required-star">*</span>
-              <select
-                name="supplierName"
-                className="form-control"
-                value={form.supplierName}
-                onChange={handleSupplierChange}
-                required
-              >
-                <option value="">-- Select Supplier --</option>
-                {suppliers.map((s, i) => (
-                  <option key={i} value={s.supplierName}>
-                    {s.supplierName}
-                  </option>
-                ))}
-              </select>
+               <select
+              name="supplierId"
+              className="form-control"
+              value={form.supplierId}
+              onChange={handleSupplierChange}
+              required
+            >
+              <option value="">-- Select Supplier --</option>
+              {suppliers.map((s) => (
+                <option key={s.jew_sup_id} value={s.jew_sup_id}>
+                  {s.jew_sup_supplier_name}
+                </option>
+
+              ))}
+            </select>
             </div>
 
             <div className="col-12 col-md-3">
@@ -205,8 +314,8 @@ export default function ItemInward() {
               >
                 <option value="">-- Select Voucher --</option>
                 {voucherList.map((v, i) => (
-                  <option key={i} value={v.voucherNo}>
-                    {v.voucherNo}
+                  <option key={i} value={v.jew_vou_id}>
+                    {v.jew_voucher}
                   </option>
                 ))}
               </select>
@@ -319,10 +428,11 @@ export default function ItemInward() {
                 multiple
                 className="form-control"
                 onChange={(e) => {
-                  const files = Array.from(e.target.files).slice(0, 3); // limit to 3
-                  setForm((prev) => ({ ...prev, image: files }));
-                  setImagePreview(files.map((file) => URL.createObjectURL(file)));
-                }}
+  const files = Array.from(e.target.files).slice(0, 3);
+  setForm((prev) => ({ ...prev, img: files })); // ✅ correct property
+  setImagePreview(files.map((file) => URL.createObjectURL(file)));
+}}
+
               />
 
             </div>

@@ -21,158 +21,158 @@ export default function AllVouchers() {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
 
   const [searchTerm, setSearchTerm] = useState("");
-const vouchers = [
-  {
-    number: 1,
-    id: "v001",
-    voucherNo: "VCH-001",
-    itemName: "Gems",
-    shape: "Round",
-    color: "Black",
-    quantity: 10,
-    purchasePrice: 1500,
-    status: "Active",
-    remark: "Urgent delivery",
-    returnQuantity: 1,
-    reason: "Faulty piece",
-    actualQuantityDelivered: 9
-  },
-  {
-    number: 2,
-    id: "v002",
-    voucherNo: "VCH-002",
-    itemName: "Pearls",
-    shape: "Oval",
-    color: "Yellow",
-    quantity: 5,
-    purchasePrice: 2000,
-    status: "Active",
-    remark: "Regular delivery",
-    returnQuantity: 2,
-    reason: "Damaged Piece",
-    actualQuantityDelivered: 3
-  },
-  {
-    number: 3,
-    id: "v003",
-    voucherNo: "VCH-003",
-    itemName: "Stones",
-    shape: "Square",
-    color: "Blue",
-    quantity: 7,
-    purchasePrice: 1750,
-    status: "Inactive",
-    remark: "High priority",
-    returnQuantity: 5,
-    reason: "Not like",
-    actualQuantityDelivered: 2
-  },
-  {
-    number: 4,
-    id: "v004",
-    voucherNo: "VCH-004",
-    itemName: "Gems",
-    shape: "Round",
-    color: "Green",
-    quantity: 12,
-    purchasePrice: 2200,
-    status: "Active",
-    remark: "High priority",
-    returnQuantity: 0,
-    reason: "",
-    actualQuantityDelivered: 12
-  },
-  {
-    number: 5,
-    id: "v005",
-    voucherNo: "VCH-005",
-    itemName: "Pearls",
-    shape: "Square",
-    color: "White",
-    quantity: 8,
-    purchasePrice: 1600,
-    status: "Inactive",
-    remark: "Urgent delivery",
-    returnQuantity: 0,
-    reason: "",
-    actualQuantityDelivered: 8
-  },
-  {
-    number: 6,
-    id: "v006",
-    voucherNo: "VCH-006",
-    itemName: "Stones",
-    shape: "Oval",
-    color: "Gray",
-    quantity: 6,
-    purchasePrice: 1900,
-    status: "Active",
-    remark: "Regular delivery",
-    returnQuantity: 0,
-    reason: "",
-    actualQuantityDelivered: 6
-  },
-  {
-    number: 7,
-    id: "v007",
-    voucherNo: "VCH-007",
-    itemName: "Diamonds",
-    shape: "Princess",
-    color: "Clear",
-    quantity: 3,
-    purchasePrice: 5000,
-    status: "Active",
-    remark: "Special order",
-    returnQuantity: 0,
-    reason: "",
-    actualQuantityDelivered: 3
-  },
-  {
-    number: 8,
-    id: "v008",
-    voucherNo: "VCH-008",
-    itemName: "Emeralds",
-    shape: "Octagon",
-    color: "Green",
-    quantity: 4,
-    purchasePrice: 4500,
-    status: "Active",
-    remark: "Client meeting",
-    returnQuantity: 0,
-    reason: "",
-    actualQuantityDelivered: 4
-  },
-  {
-    number: 9,
-    id: "v009",
-    voucherNo: "VCH-009",
-    itemName: "Rubies",
-    shape: "Heart",
-    color: "Red",
-    quantity: 2,
-    purchasePrice: 6000,
-    status: "Inactive",
-    remark: "On hold",
-    returnQuantity: 0,
-    reason: "",
-    actualQuantityDelivered: 2
-  },
-  {
-    number: 10,
-    id: "v010",
-    voucherNo: "VCH-010",
-    itemName: "Sapphires",
-    shape: "Pear",
-    color: "Blue",
-    quantity: 9,
-    purchasePrice: 3000,
-    status: "Active",
-    remark: "New arrival",
-    returnQuantity: 0,
-    reason: "",
-    actualQuantityDelivered: 9
-  }
-];
+  const vouchers = [
+    {
+      number: 1,
+      id: "v001",
+      voucherNo: "VCH-001",
+      itemName: "Gems",
+      shape: "Round",
+      color: "Black",
+      quantity: 10,
+      purchasePrice: 1500,
+      status: "Accept",
+      remark: "Urgent delivery",
+      returnQuantity: 1,
+      reason: "Faulty piece",
+      actualQuantityDelivered: 9
+    },
+    {
+      number: 2,
+      id: "v002",
+      voucherNo: "VCH-002",
+      itemName: "Pearls",
+      shape: "Oval",
+      color: "Yellow",
+      quantity: 5,
+      purchasePrice: 2000,
+      status: "Accept",
+      remark: "Regular delivery",
+      returnQuantity: 2,
+      reason: "Damaged Piece",
+      actualQuantityDelivered: 3
+    },
+    {
+      number: 3,
+      id: "v003",
+      voucherNo: "VCH-003",
+      itemName: "Stones",
+      shape: "Square",
+      color: "Blue",
+      quantity: 7,
+      purchasePrice: 1750,
+      status: "Reject",
+      remark: "High priority",
+      returnQuantity: 5,
+      reason: "Not like",
+      actualQuantityDelivered: 2
+    },
+    {
+      number: 4,
+      id: "v004",
+      voucherNo: "VCH-004",
+      itemName: "Gems",
+      shape: "Round",
+      color: "Green",
+      quantity: 12,
+      purchasePrice: 2200,
+      status: "Accept",
+      remark: "High priority",
+      returnQuantity: 0,
+      reason: "",
+      actualQuantityDelivered: 12
+    },
+    {
+      number: 5,
+      id: "v005",
+      voucherNo: "VCH-005",
+      itemName: "Pearls",
+      shape: "Square",
+      color: "White",
+      quantity: 8,
+      purchasePrice: 1600,
+      status: "Reject",
+      remark: "Urgent delivery",
+      returnQuantity: 0,
+      reason: "",
+      actualQuantityDelivered: 8
+    },
+    {
+      number: 6,
+      id: "v006",
+      voucherNo: "VCH-006",
+      itemName: "Stones",
+      shape: "Oval",
+      color: "Gray",
+      quantity: 6,
+      purchasePrice: 1900,
+      status: "Return",
+      remark: "Regular delivery",
+      returnQuantity: 4,
+      reason: "Faulty Piece",
+      actualQuantityDelivered: 2
+    },
+    {
+      number: 7,
+      id: "v007",
+      voucherNo: "VCH-007",
+      itemName: "Diamonds",
+      shape: "Princess",
+      color: "Clear",
+      quantity: 3,
+      purchasePrice: 5000,
+      status: "Accept",
+      remark: "Special order",
+      returnQuantity: 0,
+      reason: "",
+      actualQuantityDelivered: 3
+    },
+    {
+      number: 8,
+      id: "v008",
+      voucherNo: "VCH-008",
+      itemName: "Emeralds",
+      shape: "Octagon",
+      color: "Green",
+      quantity: 4,
+      purchasePrice: 4500,
+      status: "Accept",
+      remark: "Client meeting",
+      returnQuantity: 0,
+      reason: "",
+      actualQuantityDelivered: 4
+    },
+    {
+      number: 9,
+      id: "v009",
+      voucherNo: "VCH-009",
+      itemName: "Rubies",
+      shape: "Heart",
+      color: "Red",
+      quantity: 2,
+      purchasePrice: 6000,
+      status: "Reject",
+      remark: "On hold",
+      returnQuantity: 0,
+      reason: "",
+      actualQuantityDelivered: 2
+    },
+    {
+      number: 10,
+      id: "v010",
+      voucherNo: "VCH-010",
+      itemName: "Sapphires",
+      shape: "Pear",
+      color: "Blue",
+      quantity: 9,
+      purchasePrice: 3000,
+      status: "Return",
+      remark: "New arrival",
+      returnQuantity: 3,
+      reason: "Shapes are not proper",
+      actualQuantityDelivered: 6
+    }
+  ];
 
 
   const [msg, setMsg] = useState("");
@@ -290,7 +290,7 @@ const vouchers = [
           justifyContent: "space-between",
           gap: "5px",
           marginBottom: "20px",
-          cursor:"default"
+          cursor: "default"
         }}
       >
         <p
@@ -301,7 +301,7 @@ const vouchers = [
             fontSize: isSmallScreen ? "20px" : "22px",
             color: "#0986a7",
             fontWeight: "600",
-            cursor:"default"
+            cursor: "default"
           }}
         >
           <img src={report} height={30} width={30} alt="report" />
@@ -422,7 +422,7 @@ const vouchers = [
         </div> */}
         <div
           className="table-responsive "
-          // style={{ overflowX: "hidden", height: "60vh" }}
+        // style={{ overflowX: "hidden", height: "60vh" }}
         >
           <table className="table table-bordered table-hover mb-0">
             <thead
@@ -468,9 +468,12 @@ const vouchers = [
                   </td>
                   <td>
                     <span
-                      className={`badge ${
-                        voucher.status === "Active" ? "bg-success" : "bg-danger"
-                      }`}
+                      className={`badge ${voucher.status === "Accept"
+                          ? "bg-success"
+                          : voucher.status === "Return"
+                            ? "bg-warning"
+                            : "bg-danger"
+                        }`}
                     >
                       {voucher.status}
                     </span>

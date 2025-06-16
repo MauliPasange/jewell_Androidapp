@@ -12,7 +12,7 @@ const Dashboard = () => {
 
   return (
     <div className="add-dashboard-container py-4">
-     <p style={{fontSize:"22px", fontWeight:"700",marginLeft:"30px", color:"#0986a7"}}><img src={user} height={40} width={40}></img> Admin DashBoard</p>
+     <p style={{fontSize:"22px", fontWeight:"700",marginLeft:"30px", color:"#0986a7"}}><img src={user} height={40} width={40}></img> Agent DashBoard</p>
 
       <div className="container">
         <div className="row g-4">
