@@ -27,6 +27,7 @@ import AllInward from "./pages/AllInward";
 import Logout from "./components/Logout";
 import AddDeliveryChallan from "./pages/AddDeliveryChallan";
 import AllDeliveryChallan from "./pages/AllDeliveryChallan";
+import AllSuppliers from "./pages/AllSuppliers";
 
 
   // local Url
@@ -60,6 +61,7 @@ function App() {
           <Route path="addTreatment" element={<AddTreatment />} /> */}
           <Route path="item-inward" element={<ItemInward />} />
           <Route path="supplier-master" element={<SupplierMaster />} />
+          <Route path="all-suppliers" element={<AllSuppliers />} />
           <Route path="add-voucher" element={<AddVoucher />} />
           <Route path="Pending-req" element={<PendingRequest/>} />
           <Route path="all-inward" element={<AllInward/>} />
