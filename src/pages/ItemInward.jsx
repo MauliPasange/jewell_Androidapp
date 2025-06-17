@@ -1,42 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios"; // make sure axios is installed
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { apiConfig } from "../../src/config";
 
 
 // Sample supplier and voucher data (replace with API later)
-const suppliersData = [
-  {
-    supplierName: "ABC Jewellers",
-    vouchers: [
-      {
-        voucherNo: "VCH-001",
-        itemName: "Pearls",
-        itemShape: "Round",
-        itemColor: "Green",
-      },
-      {
-        voucherNo: "VCH-002",
-        itemName: "Gems",
-        itemShape: "Square",
-        itemColor: "Royal Blue",
-      },
-    ],
-  },
-  {
-    supplierName: "XYZ Traders",
-    vouchers: [
-      {
-        voucherNo: "VCH-003",
-        itemName: "Diamond",
-        itemShape: "Oval",
-        itemColor: "Red",
-      },
-    ],
-  },
-];
-
 export default function ItemInward() {
   const [form, setForm] = useState({
     date: "",
@@ -44,8 +12,11 @@ export default function ItemInward() {
     supplierName: "",
     voucherNo: "",
     itemName: "",
+    itemId: "",
     itemShape: "",
+    shapeId: "",
     itemColor: "",
+    colorId: "",
     subItemName: "",
     number: "",
     length: "",
@@ -64,7 +35,7 @@ export default function ItemInward() {
   });
 
   const [voucherList, setVoucherList] = useState([]);
-const [suppliers, setSuppliers] = useState([]);
+  const [suppliers, setSuppliers] = useState([]);
   const [msg, setMsg] = useState("");
   const [imagePreview, setImagePreview] = useState([]);
   const Base_URL = apiConfig.getBaseURL();
@@ -76,165 +47,172 @@ const [suppliers, setSuppliers] = useState([]);
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
- useEffect(() => {
+  useEffect(() => {
 
-  const fetchSuppliers = async () => {
-    try {
-      const response = await axios.get(`${Base_URL}/inward/getActiveSuppliers`, {
-        headers: {
-          "x-api-key": authApiKey,
-        },
-      });
-      setSuppliers(response.data.data); // adjust this if your API response shape is different
-      console.log(response.data.data);
-      
-    } catch (error) {
-      console.error("Failed to fetch suppliers:", error);
-    }
-  };
+    const fetchSuppliers = async () => {
+      try {
+        const response = await axios.get(`${Base_URL}/inward/getActiveSuppliers`, {
+          headers: {
+            "x-api-key": authApiKey,
+          },
+        });
+        setSuppliers(response.data.data); // adjust this if your API response shape is different
+        console.log(response.data.data);
 
-  fetchSuppliers();
-}, []);
-
-
-
-const handleSupplierChange = async (e) => {
-  const supplierId = e.target.value;
-  const selectedSupplier = suppliers.find((s) => s.jew_sup_id == supplierId);
-
-  setForm((prev) => ({
-    ...prev,
-    supplierId,
-    supplierName: selectedSupplier?.supplierName || "",
-    voucherNo: "",
-    itemName: "",
-    itemShape: "",
-    itemColor: "",
-  }));
-
-  try {
-  //  const authApiKey = sessionStorage.getItem("APIKEY");
-  
-    const response = await axios.post(
-      `${Base_URL}/inward/getVouchersBySupplierId`,{ id: supplierId },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": authApiKey,
-        },
+      } catch (error) {
+        console.error("Failed to fetch suppliers:", error);
       }
-    );
+    };
 
-    setVoucherList(response.data.data); // adjust this based on your actual API response jew_voucher
-  } catch (error) {
-    console.error("Error fetching vouchers:", error);
-    setVoucherList([]);
-  }
-};
-
-const handleVoucherChange = (e) => {
-  const voucherId = e.target.value;
-  const selectedVoucher = voucherList.find((v) => v.jew_vou_id == voucherId);
-
-  setForm((prev) => ({
-    ...prev,
-    voucherNo: voucherId, // this fixes the selected option display
-    itemName: selectedVoucher?.item_name || "",
-    itemShape: selectedVoucher?.shape_name || "",
-    itemColor: selectedVoucher?.color_name || "",
-  }));
-};
+    fetchSuppliers();
+  }, []);
 
 
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    let uploadedImagePaths = [];
+  const handleSupplierChange = async (e) => {
+    const supplierId = e.target.value;
+    const selectedSupplier = suppliers.find((s) => s.jew_sup_id == supplierId);
 
-    if (form.img && form.img.length > 0) {
-      const imageFormData = new FormData();
-      form.img.forEach((file) => imageFormData.append("files", file));
+    setForm((prev) => ({
+      ...prev,
+      supplierId,
+      supplierName: selectedSupplier?.supplierName || "",
+      voucherNo: "",
+      itemName: "",
+      itemId: "",
+      itemShape: "",
+      shapeId: "",
+      itemColor: "",
+      colorId: ""
+    }));
 
-      const imageUploadResponse = await axios.post(
-        `${Base_URL}/img/upload`,
-        imageFormData,
+    try {
+      const response = await axios.post(
+        `${Base_URL}/inward/getVouchersBySupplierId`, { id: supplierId },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
             "x-api-key": authApiKey,
           },
         }
       );
 
-      uploadedImagePaths = imageUploadResponse.data.paths; // e.g., ["img1.jpg", "img2.jpg"]
+      setVoucherList(response.data.data); // adjust this based on your actual API response jew_voucher
+    } catch (error) {
+      console.error("Error fetching vouchers:", error);
+      setVoucherList([]);
     }
+  };
 
-    const payload = {
-      one: form.itemName,
-      two: form.itemShape,
-      three: form.itemColor,
-      four: form.subItemName,
-      five: form.number,
-      six: form.length,
-      seven: form.breadth,
-      eight: form.height,
-      nine: form.quantity,
-      ten: form.unit,
-      eleven: form.hsnCode,
-      twelve: form.gst + "%",
-      thirteen: parseFloat(form.purchasePrice),
-      fourteen: form.purchaseCode,
-      fifteen: parseFloat(form.salePrice),
-      sixteen: form.saleCode,
-      seventeen: form.supplierName,
-      eighteen: form.remarks,
-      nineteen: uploadedImagePaths[0] || "",
-      twenty: uploadedImagePaths[1] || "",
-      twentyone: uploadedImagePaths[2] || "",
-      twentytwo: 1
-    };
+  const handleVoucherChange = (e) => {
+    const voucherId = e.target.value;
+    const selectedVoucher = voucherList.find((v) => v.jew_vou_id == voucherId);
 
-    await axios.post(`${Base_URL}/inward/addInwardItem`, payload, {
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": authApiKey,
-      },
-    });
+    setForm((prev) => ({
+      ...prev,
+      voucherNo: voucherId, // this fixes the selected option display
+      itemName: selectedVoucher?.item_name || "",
+      itemShape: selectedVoucher?.shape_name || "",
+      itemColor: selectedVoucher?.color_name || "",
+      itemId: selectedVoucher?.item_id || "",
+      shapeId: selectedVoucher?.shape_id || "",
+      colorId: selectedVoucher?.color_id || "",
+    }));
+  };
 
-    setMsg("Saved successfully!");
-    setForm({
-      date: "",
-      supplierId: "",
-      supplierName: "",
-      voucherNo: "",
-      itemName: "",
-      itemShape: "",
-      itemColor: "",
-      subItemName: "",
-      number: "",
-      length: "",
-      breadth: "",
-      height: "",
-      quantity: "",
-      unit: "",
-      hsnCode: "",
-      gst: "",
-      purchasePrice: "",
-      purchaseCode: "",
-      salePrice: "",
-      saleCode: "",
-      remarks: "",
-      img: [],
-    });
-    setImagePreview([]);
-    setVoucherList([]);
-    setTimeout(() => setMsg(""), 3000);
-  } catch (error) {
-    console.error("Error submitting form:", error);
-    alert("Failed to submit.");
-  }
-};
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let uploadedImagePaths = [];
+
+      if (form.img && form.img.length > 0) {
+        const imageFormData = new FormData();
+        form.img.forEach((file) => imageFormData.append("files", file));
+
+        const imageUploadResponse = await axios.post(
+          `${Base_URL}/img/upload`,
+          imageFormData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              "x-api-key": authApiKey,
+            },
+          }
+        );
+
+        uploadedImagePaths = imageUploadResponse.data.paths; // e.g., ["img1.jpg", "img2.jpg"]
+      }
+
+      const payload = {
+        one: form.itemId || "",
+        two: form.shapeId || "",
+        three: form.colorId || "",
+        four: form.subItemName || "",
+        five: form.voucherNo || "",
+        six: form.length || "",
+        seven: form.breadth || "",
+        eight: form.height || "",
+        nine: form.quantity || "",
+        ten: form.unit || "",
+        eleven: form.hsnCode || "",
+        twelve: "null",
+        thirteen: parseFloat(form.purchasePrice) || "",
+        fourteen: form.purchaseCode || "",
+        fifteen: parseFloat(form.salePrice) || "",
+        sixteen: form.saleCode || "",
+        seventeen: form.supplierId || "",
+        eighteen: form.remarks || "",
+        nineteen: uploadedImagePaths[0] || "",
+        twenty: uploadedImagePaths[1] || "",
+        twentyone: uploadedImagePaths[2] || "",
+        twentytwo: 1
+      };
+
+      await axios.post(`${Base_URL}/inward/addInwardItem`, payload, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": authApiKey,
+        },
+      });
+
+      setMsg(" Item Inward Saved successfully!");
+      setForm({
+        date: "",
+        supplierId: "",
+        supplierName: "",
+        voucherNo: "",
+        itemName: "",
+        itemShape: "",
+        itemColor: "",
+        subItemName: "",
+        number: "",
+        length: "",
+        breadth: "",
+        height: "",
+        quantity: "",
+        unit: "",
+        hsnCode: "",
+        gst: "",
+        purchasePrice: "",
+        purchaseCode: "",
+        salePrice: "",
+        saleCode: "",
+        remarks: "",
+        img: [],
+        shapeId: "",
+        itemId: "",
+        colorId: ""
+      });
+      setImagePreview([]);
+      setVoucherList([]);
+      setTimeout(() => setMsg(""), 5000);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Failed to submit.");
+    }
+  };
 
 
 
@@ -280,26 +258,26 @@ const handleSubmit = async (e) => {
               />
             </div>
 
-          
 
-  <div className="col-12 col-md-3">
+
+            <div className="col-12 col-md-3">
               <label className="labelText">Select Supplier</label>
               <span className="required-star">*</span>
-               <select
-              name="supplierId"
-              className="form-control"
-              value={form.supplierId}
-              onChange={handleSupplierChange}
-              required
-            >
-              <option value="">-- Select Supplier --</option>
-              {suppliers.map((s) => (
-                <option key={s.jew_sup_id} value={s.jew_sup_id}>
-                  {s.jew_sup_supplier_name}
-                </option>
+              <select
+                name="supplierId"
+                className="form-control"
+                value={form.supplierId}
+                onChange={handleSupplierChange}
+                required
+              >
+                <option value="">-- Select Supplier --</option>
+                {suppliers.map((s) => (
+                  <option key={s.jew_sup_id} value={s.jew_sup_id}>
+                    {s.jew_sup_supplier_name}
+                  </option>
 
-              ))}
-            </select>
+                ))}
+              </select>
             </div>
 
             <div className="col-12 col-md-3">
@@ -428,10 +406,10 @@ const handleSubmit = async (e) => {
                 multiple
                 className="form-control"
                 onChange={(e) => {
-  const files = Array.from(e.target.files).slice(0, 3);
-  setForm((prev) => ({ ...prev, img: files })); // ✅ correct property
-  setImagePreview(files.map((file) => URL.createObjectURL(file)));
-}}
+                  const files = Array.from(e.target.files).slice(0, 3);
+                  setForm((prev) => ({ ...prev, img: files })); // ✅ correct property
+                  setImagePreview(files.map((file) => URL.createObjectURL(file)));
+                }}
 
               />
 
@@ -446,8 +424,8 @@ const handleSubmit = async (e) => {
                       className="img-thumbnail"
                       style={{
                         width: "150px",
-                        height:"150px",
-                       
+                        height: "150px",
+
                         objectFit: "contain",
                       }}
                     />
