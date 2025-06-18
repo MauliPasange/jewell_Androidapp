@@ -46,24 +46,24 @@ export default function ReturnModal({ show, onClose, item }) {
                     <div className="modal-body">
                         {/* Two-column layout for fetched item details */}
                         <div className="row mb-2">
-                            <div className="col-md-6"><strong>Voucher No:</strong> {item?.voucherNo}</div>
-                            <div className="col-md-6"><strong>Item Name:</strong> {item?.itemName}</div>
+                            <div className="col-md-6"><strong>Voucher No:</strong> {item?.jew_voucher}</div>
+                            <div className="col-md-6"><strong>Item Name:</strong> {item?.item_name}</div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-6"><strong>Supplier Name:</strong> {item?.supplierName}</div>
-                            <div className="col-md-6"><strong>Item Color:</strong> {item?.itemColor}</div>
+                            <div className="col-md-6"><strong>Supplier Name:</strong> {item?.supplier_name}</div>
+                            <div className="col-md-6"><strong>Item Color:</strong> {item?.color_name}</div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-6"><strong>Item Shape:</strong> {item?.itemShape}</div>
-                            <div className="col-md-6"><strong>Purchase Price:</strong> ₹{item?.purchasePrice}</div>
+                            <div className="col-md-6"><strong>Item Shape:</strong> {item?.shape_name}</div>
+                            <div className="col-md-6"><strong>Purchase Price:</strong> ₹{item?.jew_vou_purchase_price}</div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-6"><strong>Quantity:</strong> {item?.quantity}</div>
-                            <div className="col-md-6"><strong>Date:</strong> {item?.date}</div>
+                            <div className="col-md-6"><strong>Quantity:</strong> {item?.jew_vou_quantity}</div>
+                            <div className="col-md-6"><strong>Date:</strong> {item?.jew_vou_sdate}</div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-6"><strong>Status:</strong> {item?.status}</div>
-                            <div className="col-md-6"><strong>Remark:</strong> {item?.remark}</div>
+                            <div className="col-md-6"><strong>Status:</strong> {item?.jew_vou_appr_status}</div>
+                            <div className="col-md-6"><strong>Remark:</strong> {item?.jew_vou_remark}</div>
                         </div>
 
                         <hr />
