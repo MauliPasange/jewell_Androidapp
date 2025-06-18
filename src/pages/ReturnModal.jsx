@@ -34,11 +34,11 @@ export default function ReturnModal({ show, onClose, item }) {
 
     return (
         <div className="modal fade show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} tabIndex="-1">
-            <div className="modal-dialog modal-dialog-centered modal-lg">
+            <div className="modal-dialog  modal-lg" style={{marginTop:"5%"}}>
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" style={{ color: "#0986a7" }}>
-                        <img src={r} height={30} width={30}></img> Return Voucher- {item?.supplierName} - {item?.voucherNo}
+                        <img src={r} height={30} width={30}></img>Return Voucher- {item?.supplierName} - {item?.voucherNo}
                         </h5>
                         <button type="button" className="btn-close" onClick={onClose}></button>
                     </div>

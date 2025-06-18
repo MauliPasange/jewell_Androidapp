@@ -270,6 +270,13 @@ Link {
   /* Zoom from the center */
 }
 
+@media (max-width: 576px) {
+  .req-btn {
+    padding: 4px 10px; /* Reduced padding for small screens */
+    font-size: 12px;   /* Optional: reduce text size */
+  }
+}
+
 /* Styling for all input and textarea placeholders */
 input::placeholder,
 textarea::placeholder {
