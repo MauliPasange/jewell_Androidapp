@@ -34,11 +34,11 @@ export default function ReturnModal({ show, onClose, item }) {
 
     return (
         <div className="modal fade show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} tabIndex="-1">
-            <div className="modal-dialog modal-dialog-centered modal-lg">
+            <div className="modal-dialog  modal-lg" style={{marginTop:"5%"}}>
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" style={{ color: "#0986a7" }}>
-                        <img src={r} height={30} width={30}></img> Return Voucher- {item?.supplierName} - {item?.voucherNo}
+                        <img src={r} height={30} width={30}></img>Return Voucher- {item?.supplierName} - {item?.voucherNo}
                         </h5>
                         <button type="button" className="btn-close" onClick={onClose}></button>
                     </div>
@@ -46,24 +46,24 @@ export default function ReturnModal({ show, onClose, item }) {
                     <div className="modal-body">
                         {/* Two-column layout for fetched item details */}
                         <div className="row mb-2">
-                            <div className="col-md-6"><strong>Voucher No:</strong> {item?.voucherNo}</div>
-                            <div className="col-md-6"><strong>Item Name:</strong> {item?.itemName}</div>
+                            <div className="col-md-6"><strong>Voucher No:</strong> {item?.jew_voucher}</div>
+                            <div className="col-md-6"><strong>Item Name:</strong> {item?.item_name}</div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-6"><strong>Supplier Name:</strong> {item?.supplierName}</div>
-                            <div className="col-md-6"><strong>Item Color:</strong> {item?.itemColor}</div>
+                            <div className="col-md-6"><strong>Supplier Name:</strong> {item?.supplier_name}</div>
+                            <div className="col-md-6"><strong>Item Color:</strong> {item?.color_name}</div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-6"><strong>Item Shape:</strong> {item?.itemShape}</div>
-                            <div className="col-md-6"><strong>Purchase Price:</strong> ₹{item?.purchasePrice}</div>
+                            <div className="col-md-6"><strong>Item Shape:</strong> {item?.shape_name}</div>
+                            <div className="col-md-6"><strong>Purchase Price:</strong> ₹{item?.jew_vou_purchase_price}</div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-6"><strong>Quantity:</strong> {item?.quantity}</div>
-                            <div className="col-md-6"><strong>Date:</strong> {item?.date}</div>
+                            <div className="col-md-6"><strong>Quantity:</strong> {item?.jew_vou_quantity}</div>
+                            <div className="col-md-6"><strong>Date:</strong> {item?.jew_vou_sdate}</div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-6"><strong>Status:</strong> {item?.status}</div>
-                            <div className="col-md-6"><strong>Remark:</strong> {item?.remark}</div>
+                            <div className="col-md-6"><strong>Status:</strong> {item?.jew_vou_appr_status}</div>
+                            <div className="col-md-6"><strong>Remark:</strong> {item?.jew_vou_remark}</div>
                         </div>
 
                         <hr />

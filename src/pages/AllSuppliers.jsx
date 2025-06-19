@@ -148,7 +148,7 @@ export default function AllSuppliers() {
         </div>
 
         <Link
-          to={"/add_supplier"}
+          to={"/supplier-master"}
           style={{ width: isSmallScreen ? "100%" : "auto" }}
         >
           <button
@@ -190,54 +190,24 @@ export default function AllSuppliers() {
               </tr>
             </thead>
             <tbody>
-              {/* {currentSuppliers.map((supplier, index) => (
-                <tr key={index}>
-                  <td>{indexOfFirst + index + 1}</td>
-                  <td
-                    className="text-primary text-decoration-underline"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      setSelectedSupplier(supplier);
-                      setShowModal(true);
-                    }}
-                  >
-                    {supplier.name}
-                  </td>
-                  <td className="d-none d-sm-table-cell">{supplier.contact}</td>
-                  <td className="d-none d-sm-table-cell">{supplier.address}</td>
-                  <td className="d-none d-sm-table-cell">{supplier.gstNo}</td>
-                  <td className="d-none d-sm-table-cell">{supplier.email}</td>
-                  <td>
-                    <span
-                      className={`badge ${
-                        supplier.status === "Active"
-                          ? "bg-success"
-                          : "bg-danger"
-                      }`}
-                    >
-                      {supplier.status}
-                    </span>
-                  </td>
-                </tr>
-              ))} */}
-              {suppliers.map(({
-            // jew_sup_id,
-            jew_sup_supplier_name,
-            jew_sup_contact,
-            jew_sup_email,
-            // jew_sup_city,
-            jew_sup_status,
-            jew_sup_address,
-            jew_sup_gst_no
+              {/* working */}
+              {/* {suppliers.map(({
+                jew_sup_id,
+                jew_sup_supplier_name,
+                jew_sup_contact,
+                jew_sup_email,
+                jew_sup_city,
+                jew_sup_status,
+                jew_sup_address,
+                jew_sup_gst_no
 
-          },index) => (
+              },index) => (
                 <tr key={index}>
                   <td>{indexOfFirst + index + 1}</td>
                   <td 
                     className="text-primary text-decoration-underline"
                     style={{cursor:"pointer"}}
                     onClick={()=>{
-
                         setSelectedSupplier(jew_sup_email);
                         setShowModal(true);
                     }}
@@ -258,21 +228,49 @@ export default function AllSuppliers() {
                     </span>
                   </td>
                 </tr>
+              ))} */}
+
+              {suppliers.map((supplier, index) => (
+                <tr key={index}>
+                  <td>{indexOfFirst + index + 1}</td>
+                  <td 
+                    className="text-primary text-decoration-underline"
+                    style={{cursor:"pointer"}}
+                    onClick={() => {
+                      setSelectedSupplier(supplier); 
+                      setShowModal(true);
+                    }}
+                  >
+                    {supplier.jew_sup_supplier_name}
+                  </td>
+                  <td className="d-none d-sm-table-cell">{supplier.jew_sup_contact}</td>
+                  <td className="d-none d-sm-table-cell">{supplier.jew_sup_address}</td>
+                  <td className="d-none d-sm-table-cell">{supplier.jew_sup_gst_no}</td>
+                  <td className="d-none d-sm-table-cell">{supplier.jew_sup_email}</td>
+                  <td>
+                    <span
+                      className={`badge ${
+                        supplier.jew_sup_status === "Active"
+                          ? "bg-success"
+                          : "bg-danger"
+                      }`}
+                    >
+                      {supplier.jew_sup_status}
+                    </span>
+                  </td>
+                </tr>
               ))}
+
             </tbody>
           </table>
 
-          {/* <SupplierDetailsModal
-            show={showModal}
-            supplier={selectedSupplier}
-            onClose={() => setShowModal(false)}
-          /> */}
 
           <Supermodal
             show={showModal}
-            supplier={selectedSupplier}
+            supplier={selectedSupplier} 
             onClose={() => setShowModal(false)}
           />
+
         </div>
 
         {/* Pagination */}

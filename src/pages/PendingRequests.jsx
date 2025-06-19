@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import purchase from '../assets/img/purchase.png';
-import d from '../assets/img/d.png'
+import d from '../assets/img/d.png';
+import axios from 'axios';
 import ReturnModal from './ReturnModal';
+import { apiConfig } from "../../src/config";
 
 export default function PendingRequest() {
     const [selectedStatus, setSelectedStatus] = useState('Pending');
@@ -10,131 +12,41 @@ export default function PendingRequest() {
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [showReturnModal, setShowReturnModal] = useState(false);
     const [showRejectModal, setShowRejectModal] = useState(false);
+    const [allVouchers, setAllVouchers] = useState([]); // ✅ State for fetched vouchers
+    const Base_URL = apiConfig.getBaseURL();
+    const authApiKey = apiConfig.getApiKey();
+    const [showApproveConfirm, setShowApproveConfirm] = useState(false);
+    const [voucherToApprove, setVoucherToApprove] = useState(null);
+    const [showRejectConfirm, setShowRejectConfirm] = useState(false);
+    const [voucherToReject, setVoucherToReject] = useState(null);
 
+    useEffect(() => {
+        fetchVouchers();
+    }, []);
 
+    const fetchVouchers = async () => {
+        try {
+            const response = await axios.get(`${Base_URL}/inward/getAllVouchers`, {
+                headers: {
+                    "x-api-key": authApiKey,
+                }
+            }); // 🔁 Replace with your actual API
+            setAllVouchers(response.data.data); // Adjust if your API wraps data differently
+            console.log(response.data.data);
 
-
-    const handleApprove = (item) => {
-        // ✅ You can also call an API here if needed
-        console.log("Approved:", item.voucherNo);
-
-        // Hide the first modal
-        const bootstrapModalEl = document.getElementById('detailsModal');
-        const modal = bootstrap.Modal.getInstance(bootstrapModalEl);
-        if (modal) modal.hide();
-
-        // Show success modal
-        setTimeout(() => {
-            setShowSuccessModal(true);
-        }, 500); // delay to avoid modal conflict
+        } catch (error) {
+            console.error('Error fetching vouchers:', error);
+        }
     };
 
-    const handleReject = (item) => {
-        console.log("Rejected:", item.voucherNo);
-
-        // Hide the first modal
-        const bootstrapModalEl = document.getElementById('detailsModal');
-        const modal = bootstrap.Modal.getInstance(bootstrapModalEl);
-        if (modal) modal.hide();
-
-        // Show reject success modal after short delay
-        setTimeout(() => {
-            setShowRejectModal(true);
-        }, 500);
-    };
-
-
-    const data = {
-        Pending: [
-            {
-                voucherNo: 'VOUJE001',
-                itemName: 'Gold Ring',
-                quantity: 2,
-                status: 'Pending',
-                date: '2025-06-09',
-                supplierName: 'Shree Jewellers',
-                itemColor: 'Yellow',
-                itemShape: 'Round',
-                purchasePrice: 12000,
-                remark: 'Urgent delivery'
-            },
-            {
-                voucherNo: 'VOUJE002',
-                itemName: 'Silver Chain',
-                quantity: 1,
-                status: 'Pending',
-                date: '2025-06-08',
-                supplierName: 'Om Silver',
-                itemColor: 'White',
-                itemShape: 'Oval',
-                purchasePrice: 4000,
-                remark: 'Custom length'
-            }
-        ],
-        Approved: [
-            {
-                voucherNo: 'VOUJE003',
-                itemName: 'Diamond Pendant',
-                quantity: 1,
-                status: 'Approved',
-                date: '2025-06-07',
-                supplierName: 'Raj Diamonds',
-                itemColor: 'Clear',
-                itemShape: 'Teardrop',
-                purchasePrice: 25000,
-                remark: 'Premium quality'
-            },
-            {
-                voucherNo: 'VOUJE001',
-                itemName: 'Gold Ring',
-                quantity: 2,
-                status: 'Approved',
-                date: '2025-06-06',
-                supplierName: 'Shree Jewellers',
-                itemColor: 'Yellow',
-                itemShape: 'Round',
-                purchasePrice: 12000,
-                remark: 'Repeat order'
-            }
-        ],
-        Rejected: [
-            {
-                voucherNo: 'VOUJE004',
-                itemName: 'Gold Necklace',
-                quantity: 1,
-                status: 'Rejected',
-                date: '2025-06-05',
-                supplierName: 'Sona Jewels',
-                itemColor: 'Gold',
-                itemShape: 'Crescent',
-                purchasePrice: 18000,
-                remark: 'Incorrect weight'
-            },
-            {
-                voucherNo: 'VOUJE002',
-                itemName: 'Silver Chain',
-                quantity: 1,
-                status: 'Rejected',
-                date: '2025-06-04',
-                supplierName: 'Om Silver',
-                itemColor: 'White',
-                itemShape: 'Oval',
-                purchasePrice: 4000,
-                remark: 'Customer returned'
-            }
-        ]
-    };
-
-
-    // 🧠 Function to handle search
     const searchReport = (e) => {
         setSearchTerm(e.target.value);
     };
 
     // 🧠 Filtered list based on search term and selected status
-    const filteredData = data[selectedStatus].filter(item =>
-        item.voucherNo.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredData = allVouchers
+        .filter(item => item.jew_vou_appr_status === selectedStatus)
+        .filter(item => item.jew_voucher.toLowerCase().includes(searchTerm.toLowerCase()));
 
     const openModal = (item) => {
         setSelectedItem(item);
@@ -217,14 +129,14 @@ export default function PendingRequest() {
                         filteredData.map((item, idx) => (
                             <tr key={idx} style={{ cursor: 'pointer' }} onClick={() => openModal(item)}>
                                 <td>{idx + 1}</td>
-                                <td>{item.voucherNo}</td>
-                                <td>{item.supplierName}</td>
-                                <td className="d-none d-md-table-cell">{item.quantity}</td>
-                                <td className="d-none d-md-table-cell">{item.date}</td>
+                                <td>{item.jew_voucher}</td>
+                                <td>{item.supplier_name}</td>
+                                <td className="d-none d-md-table-cell">{item.jew_vou_quantity}</td>
+                                <td className="d-none d-md-table-cell">{item.jew_vou_sdate}</td>
                                 <td>
-                                    <span className={`voucher-badge ${item.status === 'Approved' ? 'bg-success' :
-                                        item.status === 'Rejected' ? 'bg-danger' : 'bg-warning text-dark'}`}>
-                                        {item.status}
+                                    <span className={`voucher-badge ${item.jew_vou_appr_status === 'Approved' ? 'bg-success' :
+                                        item.jew_vou_appr_status === 'Rejected' ? 'bg-danger' : 'bg-warning text-dark'}`}>
+                                        {item.jew_vou_appr_status}
                                     </span>
                                 </td>
                             </tr>
@@ -233,56 +145,163 @@ export default function PendingRequest() {
                 </tbody>
 
 
-                {/* Bootstrap Modal */}
-                <div className="modal fade" id="detailsModal" tabIndex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-dialog-centered" style={{ marginTop: "-15px" }}>
+
+            </table>
+            {/* Bootstrap Modal */}
+            <div className="modal fade" id="detailsModal" tabIndex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+                <div className="modal-dialog" style={{ marginTop: "5%" }}>
+                    <div className="modal-content">
+                        {selectedItem && (
+                            <>
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="detailsModalLabel" style={{ color: "#0986a7" }}><img src={d} height={30} width={30}></img> &nbsp;{selectedItem.supplier_name}-{selectedItem.jew_voucher}</h5>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div className="modal-body">
+                                    <p><strong>Voucher No:</strong> {selectedItem.jew_voucher}</p>
+                                    <p><strong>Item Name:</strong> {selectedItem.item_name}</p>
+                                    <p><strong>Supplier Name:</strong> {selectedItem.supplier_name}</p>
+                                    <p><strong>Item Color:</strong> {selectedItem.color_name}</p>
+                                    <p><strong>Item Shape:</strong> {selectedItem.shape_name}</p>
+                                    <p><strong>Purchase Price:</strong> ₹{selectedItem.jew_vou_purchase_price}</p>
+                                    <p><strong>Quantity:</strong> {selectedItem.jew_vou_quantity}</p>
+                                    <p><strong>Date:</strong> {selectedItem.jew_vou_sdate}</p>
+                                    <p><strong>Status:</strong> {selectedItem.jew_vou_appr_status}</p>
+                                    <p><strong>Remark:</strong> {selectedItem.jew_vou_remark}</p>
+
+                                    <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+                                        {selectedItem.jew_vou_appr_status === "Pending" && (
+                                            <>
+                                                <button
+                                                    className="custom-btn-primary req-btn"
+                                                    onClick={() => {
+                                                        setVoucherToApprove(selectedItem);
+                                                        setShowApproveConfirm(true);
+                                                    }}
+                                                >
+                                                    Approve
+                                                </button>
+                                                <button
+                                                    className="custom-btn-secondary req-btn"
+                                                    onClick={() => {
+                                                        setVoucherToReject(selectedItem);
+                                                        setShowRejectConfirm(true);
+                                                    }}
+                                                >
+                                                    Reject
+                                                </button>
+                                                <button className="custom-btn-primary req-btn" onClick={() => {
+                                                    const modal = bootstrap.Modal.getInstance(document.getElementById('detailsModal'));
+                                                    if (modal) modal.hide();
+                                                    setShowReturnModal(true);
+                                                }}>
+                                                    Return
+                                                </button>
+                                            </>
+                                        )}
+                                        <button className="custom-btn-secondary req-btn" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </div>
+            </div>
+
+            {showApproveConfirm && (
+                <div className="modal fade show d-block" tabIndex="-1" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+                    <div className="modal-dialog" style={{ marginTop: "150px" }}>
                         <div className="modal-content">
-                            {selectedItem && (
-                                <>
-                                    <div className="modal-header">
-                                        <h5 className="modal-title" id="detailsModalLabel" style={{ color: "#0986a7" }}><img src={d} height={30} width={30}></img> &nbsp;{selectedItem.supplierName}-{selectedItem.voucherNo}</h5>
-                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div className="modal-body">
-                                        <p><strong>Voucher No:</strong> {selectedItem.voucherNo}</p>
-                                        <p><strong>Item Name:</strong> {selectedItem.itemName}</p>
-                                        <p><strong>Supplier Name:</strong> {selectedItem.supplierName}</p>
-                                        <p><strong>Item Color:</strong> {selectedItem.itemColor}</p>
-                                        <p><strong>Item Shape:</strong> {selectedItem.itemShape}</p>
-                                        <p><strong>Purchase Price:</strong> ₹{selectedItem.purchasePrice}</p>
-                                        <p><strong>Quantity:</strong> {selectedItem.quantity}</p>
-                                        <p><strong>Date:</strong> {selectedItem.date}</p>
-                                        <p><strong>Status:</strong> {selectedItem.status}</p>
-                                        <p><strong>Remark:</strong> {selectedItem.remark}</p>
+                            <div className="modal-header">
+                                <h5 className="modal-title">Confirm Approval</h5>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    onClick={() => setShowApproveConfirm(false)}
+                                ></button>
+                            </div>
+                            <div className="modal-body text-center">
+                                <p>Are you sure you want to approve this voucher?</p>
+                                <button
+                                    className="btn btn-success me-2"
+                                    onClick={async () => {
+                                        // ✅ CALL the web service here
+                                        try {
+                                            const response = await axios.post(`${Base_URL}/inward/approveVoucherByAdmin`, {
+                                                voucherId: voucherToApprove.jew_vou_id,
+                                                adminId: 1// Replace with actual admin ID
+                                            }, {
+                                                headers: { "x-api-key": authApiKey }
+                                            });
 
-                                        <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-                                            {selectedItem.status === "Pending" && (
-                                                <>
-                                                    <button className="custom-btn-primary" onClick={() => handleApprove(selectedItem)}>
-                                                        Approve
-                                                    </button>
-                                                    <button className="custom-btn-secondary" onClick={() => handleReject(selectedItem)}>
-                                                        Reject
-                                                    </button>
-                                                    <button className="custom-btn-primary" onClick={() => {
-                                                        const modal = bootstrap.Modal.getInstance(document.getElementById('detailsModal'));
-                                                        if (modal) modal.hide();
-                                                        setShowReturnModal(true);
-                                                    }}>
-                                                        Return
-                                                    </button>
-                                                </>
-                                            )}
-                                            <button className="custom-btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        </div>
-
-                                    </div>
-                                </>
-                            )}
+                                            console.log("API Success:", response.data);
+                                            setShowApproveConfirm(false);
+                                            setShowSuccessModal(true);
+                                            fetchVouchers(); // Refresh data
+                                        } catch (error) {
+                                            console.error("Approval failed:", error);
+                                            alert("Something went wrong during approval.");
+                                        }
+                                    }}
+                                >
+                                    Yes, Approve
+                                </button>
+                                <button className="btn btn-secondary" onClick={() => setShowApproveConfirm(false)}>
+                                    Cancel
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </table>
+            )}
+
+            {showRejectConfirm && (
+                <div className="modal fade show d-block" tabIndex="-1" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+                    <div className="modal-dialog" style={{ marginTop: "150px" }}>
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Confirm Rejection</h5>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    onClick={() => setShowRejectConfirm(false)}
+                                ></button>
+                            </div>
+                            <div className="modal-body text-center">
+                                <p>Are you sure you want to reject this voucher?</p>
+                                <button
+                                    className="btn btn-success me-2"
+                                    onClick={async () => {
+                                        // ✅ CALL the web service here
+                                        try {
+                                            const response = await axios.post(`${Base_URL}/inward/rejectVoucherByAdmin`, {
+                                                voucherId: voucherToReject.jew_vou_id,
+                                                adminId: 1// Replace with actual admin ID
+                                            }, {
+                                                headers: { "x-api-key": authApiKey }
+                                            });
+
+                                            console.log("API Success:", response.data);
+                                            setShowRejectConfirm(false);
+                                            setShowRejectModal(true);
+                                            fetchVouchers(); // Refresh data
+                                        } catch (error) {
+                                            console.error("Rejection failed:", error);
+                                            alert("Something went wrong during Reject the request.");
+                                        }
+                                    }}
+                                >
+                                    Yes, Reject
+                                </button>
+                                <button className="btn btn-secondary" onClick={() => setShowApproveConfirm(false)}>
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
 
             {/* ✅ Success Modal */}
             <div
@@ -290,11 +309,11 @@ export default function PendingRequest() {
                 tabIndex="-1"
                 style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
             >
-                <div className="modal-dialog" style={{ marginTop: "100px" }}>
+                <div className="modal-dialog" style={{ marginTop: "150px" }}>
                     <div className="modal-content">
                         <div className="modal-header justify-content-center position-relative">
                             <h5 className="modal-title text-center w-100" style={{ color: "#28a745", fontSize: "22px", fontWeight: "600" }}>
-                                {selectedItem ? `${selectedItem.supplierName} - ${selectedItem.voucherNo}` : ''}
+                                {selectedItem ? `${selectedItem.supplier_name} - ${selectedItem.jew_voucher}` : ''}
                             </h5>
                             <button
                                 type="button"
@@ -307,11 +326,18 @@ export default function PendingRequest() {
                             <p><strong>Request approved successfully!</strong></p>
                             <button
                                 className="btn btn-success"
-                                onClick={() => setShowSuccessModal(false)}
+                                onClick={() => {
+                                    setShowSuccessModal(false); // Hide success modal
 
+                                    // Close the detailsModal if open
+                                    const bootstrapModalEl = document.getElementById('detailsModal');
+                                    const modal = bootstrap.Modal.getInstance(bootstrapModalEl);
+                                    if (modal) modal.hide();
+                                }}
                             >
                                 OK
                             </button>
+
                         </div>
                     </div>
                 </div>
@@ -326,7 +352,7 @@ export default function PendingRequest() {
                     <div className="modal-content">
                         <div className="modal-header justify-content-center position-relative">
                             <h5 className="modal-title text-center w-100" style={{ color: "#dc3545", fontSize: "22px", fontWeight: "600" }}>
-                                {selectedItem ? `${selectedItem.supplierName} - ${selectedItem.voucherNo}` : ''}
+                                {selectedItem ? `${selectedItem.supplier_name} - ${selectedItem.jew_voucher}` : ''}
                             </h5>
                             <button
                                 type="button"
@@ -339,7 +365,15 @@ export default function PendingRequest() {
                             <p><strong>Request rejected successfully!</strong></p>
                             <button
                                 className="btn btn-danger"
-                                onClick={() => setShowRejectModal(false)}
+
+                                onClick={() => {
+                                    setShowSuccessModal(false)
+                                     setShowRejectModal(false)
+                                    // Close the detailsModal if open
+                                    const bootstrapModalEl = document.getElementById('detailsModal');
+                                    const modal = bootstrap.Modal.getInstance(bootstrapModalEl);
+                                    if (modal) modal.hide();
+                                }}
                             >
                                 OK
                             </button>
