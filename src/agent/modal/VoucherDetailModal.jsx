@@ -17,18 +17,17 @@ export default function VoucherDetailModal({ show, onClose, voucher }) {
 
           <div className="modal-body">
             <ul className="list-group list-group-flush">
-              <li className="list-group-item"><strong>Voucher No.:</strong> {voucher.voucherNo }</li>
-              <li className="list-group-item"><strong>Item Name:</strong> {voucher.itemName}</li>
-              <li className="list-group-item"><strong>Item Shape:</strong> {voucher.shape}</li>
-              <li className="list-group-item"><strong>Item Color:</strong> {voucher.color}</li>
-              <li className="list-group-item"><strong>Quantity:</strong> {voucher.quantity}</li>
-              <li className="list-group-item"><strong>Return Quantity:</strong> {voucher.returnQuantity }</li>
-              <li className="list-group-item"><strong>Reason:</strong> {voucher.reason }</li>
-              <li className="list-group-item"><strong>Actual Quantity Delivered:</strong> {voucher.actualQuantityDelivered }</li>
-
-              <li className="list-group-item"><strong>Purchase Price:</strong> ₹{voucher.purchasePrice}</li>
-              <li className="list-group-item"><strong>Status:</strong> {voucher.status }</li>
-              <li className="list-group-item"><strong>Remark:</strong> {voucher.remark }</li>
+              <li className="list-group-item"><strong>Voucher No.:</strong> {voucher.jew_voucher}</li>
+              <li className="list-group-item"><strong>Item Name:</strong> {voucher.item_name}</li>
+              <li className="list-group-item"><strong>Item Shape:</strong> {voucher.shape_name ? voucher.shape_name:"......."}</li>
+              <li className="list-group-item"><strong>Item Color:</strong> {voucher.color_name}</li>
+              <li className="list-group-item"><strong>Quantity:</strong> {voucher.jew_vou_quantity}</li>
+              <li className="list-group-item"><strong>Return Quantity:</strong> {voucher.returnQuantity ? voucher.returnQuantity:"........" }</li>
+              <li className="list-group-item"><strong>Reason:</strong> {voucher.reason ? voucher.reason:"........" }</li>
+              <li className="list-group-item"><strong>Actual Quantity Delivered:</strong> {voucher.actualQuantityDelivered ? voucher.actualQuantityDelivered:"........" }</li>
+              <li className="list-group-item"><strong>Purchase Price:</strong> ₹{voucher.jew_vou_purchase_price}</li>
+              <li className="list-group-item"><strong>Status:</strong> {voucher.jew_vou_status }</li>
+              <li className="list-group-item"><strong>Remark:</strong> {voucher.jew_vou_remark }</li>
             </ul>
           </div>
 
