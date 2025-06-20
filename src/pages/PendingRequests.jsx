@@ -213,7 +213,7 @@ export default function PendingRequest() {
                     <div className="modal-dialog" style={{ marginTop: "150px" }}>
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Confirm Approval</h5>
+                                <h5 className="modal-title" style={{ color: "#0986a7", fontWeight:"550"}}>Confirm Approval</h5>
                                 <button
                                     type="button"
                                     className="btn-close"
@@ -223,7 +223,7 @@ export default function PendingRequest() {
                             <div className="modal-body text-center">
                                 <p>Are you sure you want to approve this voucher?</p>
                                 <button
-                                    className="btn btn-success me-2"
+                                    className="btn custom-btn-primary "
                                     onClick={async () => {
                                         // ✅ CALL the web service here
                                         try {
@@ -246,7 +246,7 @@ export default function PendingRequest() {
                                 >
                                     Yes, Approve
                                 </button>
-                                <button className="btn btn-secondary" onClick={() => setShowApproveConfirm(false)}>
+                                <button className="btn custom-btn-secondary" onClick={() => setShowApproveConfirm(false)}>
                                     Cancel
                                 </button>
                             </div>
@@ -260,7 +260,7 @@ export default function PendingRequest() {
                     <div className="modal-dialog" style={{ marginTop: "150px" }}>
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Confirm Rejection</h5>
+                                <h5 className="modal-title" style={{ color: "#0986a7", fontWeight:"550"}}>Confirm Rejection</h5>
                                 <button
                                     type="button"
                                     className="btn-close"
@@ -270,7 +270,7 @@ export default function PendingRequest() {
                             <div className="modal-body text-center">
                                 <p>Are you sure you want to reject this voucher?</p>
                                 <button
-                                    className="btn btn-success me-2"
+                                    className="btn custom-btn-primary "
                                     onClick={async () => {
                                         // ✅ CALL the web service here
                                         try {
@@ -293,7 +293,7 @@ export default function PendingRequest() {
                                 >
                                     Yes, Reject
                                 </button>
-                                <button className="btn btn-secondary" onClick={() => setShowApproveConfirm(false)}>
+                                <button className="btn custom-btn-secondary" onClick={() => setShowApproveConfirm(false)}>
                                     Cancel
                                 </button>
                             </div>
