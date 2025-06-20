@@ -4,8 +4,8 @@ import { apiConfig } from "../../src/config";
 
 export default function ItemDetailsModal({ show, item, onClose }) {
     if (!show || !item) return null;
-      const Base_URL = apiConfig.getBaseURL();
-     
+    const Base_URL = apiConfig.getBaseURL();
+
 
     const imageFields = ['jai_image1', 'jai_image2', 'jai_image3'];
 
@@ -16,7 +16,20 @@ export default function ItemDetailsModal({ show, item, onClose }) {
         jai_sdate: "Date",
         jew_sup_supplier_name: "Supplier Name",
         jai_quantity: "Quantity",
-        jai_status: "Status"
+        jai_status: "Status",
+        jit_name: "Item Name",
+        jit_shape: "Item Shape",
+        jit_color: "Item Color",
+        jai_unit: "Item Unit",
+        jai_remark: "Remark",
+        jai_quantity: "Quantity",
+        jai_purchase_price: "Purchase Price",
+        jai_purchase_code: "Purchase Code",
+        jai_sale_price: "Sale Price",
+        jai_sale_code: "Sale Code",
+        jai_height: "Height",
+        jai_breadth: "Breadth",
+        jai_length: "Length"
     };
 
     return (
@@ -45,9 +58,9 @@ export default function ItemDetailsModal({ show, item, onClose }) {
                                 item[imgKey] ? (
                                     <div className="col-md-4" key={idx}>
                                         <img
-                                            src={`${Base_URL}/${item[imgKey]}`}
-                                         
-                                            
+                                            src={`${Base_URL}${item[imgKey]}`}
+
+
                                             alt={`img-${idx}`}
                                             className="img-thumbnail"
                                             style={{ width: '200px', height: '150px', objectFit: 'cover' }}
@@ -59,12 +72,22 @@ export default function ItemDetailsModal({ show, item, onClose }) {
 
                         {/* ✅ Custom-labeled Key-Value Pair Grid */}
                         <div className="row">
-                            {Object.entries(displayFields).map(([key, label], index) => (
-                                <div className="col-md-6 mb-2" key={index}>
-                                    <strong>{label}:</strong> {item[key]}
-                                </div>
-                            ))}
+                            {Object.entries(displayFields).map(([key, label], index) => {
+                                let value = item[key];
+
+                                // 🔍 Format date-only for 'jai_sdate'
+                                if (key === "jai_sdate" && typeof value === "string") {
+                                    value = value.split(' ')[0]; // Extracts "YYYY-MM-DD"
+                                }
+
+                                return (
+                                    <div className="col-md-6 mb-2" key={index}>
+                                        <strong>{label}:</strong> {value}
+                                    </div>
+                                );
+                            })}
                         </div>
+
 
                         <div className="text-center mt-3">
                             <button className="custom-btn-primary" onClick={onClose}>Close</button>
