@@ -1,56 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import report from "../assets/img/report.png";
-import Supermodal from "../modal/Supermodal";
 import axios from "axios";
+import CustomerDetailsModal from "../modal/CustomerDetailsModal";
 
-export default function AllSuppliers() {
-  const supplierList = [
-    {
-      name: "Riddhi Jewellery",
-      contact: "9876543210",
-      address: "Kharghar, Maharashtra",
-      gstNo: "27AAECR1234F1Z5",
-      email: "riddhi@jewels.com",
-      status: "Active",
-    },
-    {
-      name: "Shree Jewels",
-      contact: "9123456789",
-      address: "Kalamboli, Maharashtra",
-      gstNo: "24BBZPM2345K1Z2",
-      email: "shree@jewels.com",
-      status: "Inactive",
-    },
-    {
-      name: "Navkar Exports",
-      contact: "9988776655",
-      address: "Surat, Gujarat",
-      gstNo: "24AACCN1234P1Z8",
-      email: "navkar@exports.com",
-      status: "Active",
-    },
-  ];
-  const [selectedSupplier, setSelectedSupplier] = useState("");
+export default function AllCustomers() {
+  const [selectedCustomer, setSelectedCustomer] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
 
-  
-  const [suppliers,setSuppliers] = useState([]);
+  const [customers, setCustomers] = useState([]);
   const Base_URL = sessionStorage.getItem("Base_URL");
   const authApiKey = sessionStorage.getItem("authApiKey");
 
-  const filteredSuppliers = supplierList.filter((supplier) =>
-    supplier.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCustomers = customers.filter((customer) =>
+    customer.cust_full_name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredSuppliers.length / rowsPerPage);
+  const totalPages = Math.ceil(filteredCustomers.length / rowsPerPage);
   const indexOfLast = currentPage * rowsPerPage;
   const indexOfFirst = indexOfLast - rowsPerPage;
-  const currentSuppliers = filteredSuppliers.slice(indexOfFirst, indexOfLast);
+  const currentCustomers = filteredCustomers.slice(indexOfFirst, indexOfLast);
 
   useEffect(() => {
     const handleResize = () => setIsSmallScreen(window.innerWidth <= 768);
@@ -67,26 +40,27 @@ export default function AllSuppliers() {
       setCurrentPage(page);
     }
   };
-  const getAllSuppliers = async () => {
+
+  const getAllCustomers = async () => {
     try {
-      const response = await axios.get(`${Base_URL}/inward/getAllSuppliers`, {
+      const response = await axios.get(`${Base_URL}/inward/getAllCustomers`, {
         headers: {
           "Content-Type": "application/json",
           "x-api-key": authApiKey,
         },
       });
       if (response?.data) {
-        console.log(response.data.data);
-        setSuppliers(response.data.data);
+        setCustomers(response.data.data);
       }
     } catch (error) {
       console.log("error", error);
-      return error;
     }
   };
+
   useEffect(() => {
-    getAllSuppliers();
+    getAllCustomers();
   }, []);
+
   return (
     <div className="MainGridContainer">
       {/* Header */}
@@ -112,7 +86,7 @@ export default function AllSuppliers() {
           }}
         >
           <img src={report} height={30} width={30} alt="report" />
-          &nbsp; All Supplier Report
+          &nbsp; All Customer Report
         </p>
 
         <div
@@ -125,7 +99,7 @@ export default function AllSuppliers() {
         >
           <input
             type="text"
-            placeholder="Search by Supplier Name"
+            placeholder="Search by Customer Name"
             className="search-input-Field"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -147,7 +121,7 @@ export default function AllSuppliers() {
         </div>
 
         <Link
-          to={"/supplier-master"}
+          to={"/customer-master"}
           style={{ width: isSmallScreen ? "100%" : "auto" }}
         >
           <button
@@ -180,96 +154,55 @@ export default function AllSuppliers() {
             >
               <tr>
                 <th>No.</th>
-                <th>Name</th>
-                <th className="d-none d-sm-table-cell">Contact</th>
-                <th className="d-none d-sm-table-cell">Address</th>
-                <th className="d-none d-sm-table-cell">GST No</th>
+                <th>Full Name</th>
+                <th className="d-none d-sm-table-cell">Shop Name</th>
                 <th className="d-none d-sm-table-cell">Email</th>
+                <th className="d-none d-sm-table-cell">Contact No</th>
+                <th className="d-none d-sm-table-cell">Alternate No</th>
+                <th className="d-none d-sm-table-cell">Address</th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
-              {/* working */}
-              {/* {suppliers.map(({
-                jew_sup_id,
-                jew_sup_supplier_name,
-                jew_sup_contact,
-                jew_sup_email,
-                jew_sup_city,
-                jew_sup_status,
-                jew_sup_address,
-                jew_sup_gst_no
-
-              },index) => (
+              {currentCustomers.map((customer, index) => (
                 <tr key={index}>
                   <td>{indexOfFirst + index + 1}</td>
-                  <td 
+                  <td
                     className="text-primary text-decoration-underline"
-                    style={{cursor:"pointer"}}
-                    onClick={()=>{
-                        setSelectedSupplier(jew_sup_email);
-                        setShowModal(true);
-                    }}
-                  >{jew_sup_supplier_name}</td>
-                  <td className="d-none d-sm-table-cell">{jew_sup_contact}</td>
-                  <td className="d-none d-sm-table-cell">{jew_sup_address}</td>
-                  <td className="d-none d-sm-table-cell">{jew_sup_gst_no}</td>
-                  <td className="d-none d-sm-table-cell">{jew_sup_email}</td>
-                  <td>
-                    <span
-                      className={`badge ${
-                        jew_sup_status === "Active"
-                          ? "bg-success"
-                          : "bg-danger"
-                      }`}
-                    >
-                      {jew_sup_status}
-                    </span>
-                  </td>
-                </tr>
-              ))} */}
-
-              {suppliers.map((supplier, index) => (
-                <tr key={index}>
-                  <td>{indexOfFirst + index + 1}</td>
-                  <td 
-                    className="text-primary text-decoration-underline"
-                    style={{cursor:"pointer"}}
+                    style={{ cursor: "pointer" }}
                     onClick={() => {
-                      setSelectedSupplier(supplier); 
+                      setSelectedCustomer(customer);
                       setShowModal(true);
                     }}
                   >
-                    {supplier.jew_sup_supplier_name}
+                    {customer.cust_full_name}
                   </td>
-                  <td className="d-none d-sm-table-cell">{supplier.jew_sup_contact}</td>
-                  <td className="d-none d-sm-table-cell">{supplier.jew_sup_address}</td>
-                  <td className="d-none d-sm-table-cell">{supplier.jew_sup_gst_no}</td>
-                  <td className="d-none d-sm-table-cell">{supplier.jew_sup_email}</td>
+                  <td className="d-none d-sm-table-cell">{customer.cust_shop_name}</td>
+                  <td className="d-none d-sm-table-cell">{customer.cust_email}</td>
+                  <td className="d-none d-sm-table-cell">{customer.cust_contact}</td>
+                  <td className="d-none d-sm-table-cell">{customer.cust_alt_contact}</td>
+                  <td className="d-none d-sm-table-cell">{customer.cust_address}</td>
                   <td>
                     <span
                       className={`badge ${
-                        supplier.jew_sup_status === "Active"
+                        customer.cust_status === "Active"
                           ? "bg-success"
                           : "bg-danger"
                       }`}
                     >
-                      {supplier.jew_sup_status}
+                      {customer.cust_status}
                     </span>
                   </td>
                 </tr>
               ))}
-
             </tbody>
           </table>
 
-
-          <Supermodal
+          <CustomerDetailsModal
             show={showModal}
-            supplier={selectedSupplier} 
+            customer={selectedCustomer}
             onClose={() => setShowModal(false)}
           />
-
         </div>
 
         {/* Pagination */}

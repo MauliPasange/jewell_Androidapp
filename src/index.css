@@ -1003,3 +1003,8 @@ footer {
 .GridReport-table-inward td{
   padding: 6px;
 }
+
+.custom-breadcrum-link{
+  /* border-bottom: 1px solid ; */
+  color: #0056b3;
+}

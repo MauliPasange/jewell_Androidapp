@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import report from '../assets/img/report.png'
-import ItemDetailsModal from './ItemDetailsModal';
 import axios from 'axios';
 import { apiConfig } from "../../src/config";
+import ItemDetailsModal from '../modal/ItemDetailsModal';
 
 export default function AllInward() {
   const Base_URL = apiConfig.getBaseURL();
