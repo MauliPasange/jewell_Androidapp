@@ -8,7 +8,6 @@ import ItemDetailsModal from '../modal/ItemDetailsModal';
 export default function AllInward() {
   const Base_URL = apiConfig.getBaseURL();
   const authApiKey = apiConfig.getApiKey();
-
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -178,7 +177,7 @@ export default function AllInward() {
                     </span>
                   </td>
                   <td >{item.jew_voucher}</td>
-                  <td className="d-none d-sm-table-cell">{item.jai_sdate}</td>
+                  <td className="d-none d-sm-table-cell">{item.jai_sdate.split(' ')[0]}</td>
 
                   <td className="d-none d-sm-table-cell">{item.jew_sup_supplier_name}</td>
 
