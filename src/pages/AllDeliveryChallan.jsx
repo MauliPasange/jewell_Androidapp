@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import report from '../assets/img/report.png';
-import DeliveryChallanModal from './DeliveryChallanModal';
+import DeliveryChallanModal from '../modal/DeliveryChallanModal';
 
 export default function AllDeliveryChallan() {
   const inwardItems = [

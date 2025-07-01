@@ -1,6 +1,6 @@
 import React from 'react';
 import d from '../assets/img/d.png';
-import { apiConfig } from "../../src/config";
+import { apiConfig } from "../config";
 
 export default function ItemDetailsModal({ show, item, onClose }) {
     if (!show || !item) return null;
