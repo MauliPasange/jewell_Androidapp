@@ -109,6 +109,13 @@ const MainLayout = () => {
             </Link>
 
             <Link
+              to="/addItemInward"
+              className="list-group-item list-group-item-action bg-dark text-white"
+            >
+              <i className="bi bi-hdd-stack me-2"></i> Item Inward New
+            </Link>
+
+            <Link
               to="/add_delChallan"
               className="list-group-item list-group-item-action bg-dark text-white"
             >

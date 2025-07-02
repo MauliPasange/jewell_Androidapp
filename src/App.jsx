@@ -30,6 +30,7 @@ import AllDeliveryChallan from "./pages/AllDeliveryChallan";
 import AllSuppliers from "./pages/AllSuppliers";
 import CustomerMaster from "./pages/CustomerMaster";
 import AllCustomers from "./pages/AllCustomers";
+import AddItemInward from "./pages/AddItemInwardNew";
 
 
   // local Url
@@ -71,6 +72,9 @@ function App() {
           <Route path="all_delChallan" element={<AllDeliveryChallan/>} />
           <Route path="customer-master" element={<CustomerMaster />} />
           <Route path="all-customers" element={<AllCustomers />} />
+
+          <Route path="addItemInward" element={<AddItemInward />} />
+
         </Route>
 
         {/* Agent Routes */}

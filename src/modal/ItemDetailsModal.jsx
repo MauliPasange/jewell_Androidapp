@@ -22,7 +22,7 @@ export default function ItemDetailsModal({ show, item, onClose }) {
         jit_color: "Item Color",
         jai_unit: "Item Unit",
         jai_remark: "Remark",
-        jai_quantity: "Quantity",
+        
         jai_purchase_price: "Purchase Price",
         jai_purchase_code: "Purchase Code",
         jai_sale_price: "Sale Price",
