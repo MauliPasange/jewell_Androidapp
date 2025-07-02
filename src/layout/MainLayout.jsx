@@ -22,6 +22,11 @@ const MainLayout = () => {
   }, []);
 
   const username = sessionStorage.getItem("username") || "Admin";
+  const handleMenuClick = () => {
+    if (window.innerWidth <= 768) {
+      setCollapsed(true);
+    }
+  };
 
   useEffect(() => {
     if (window.innerWidth < 768) {
@@ -54,7 +59,13 @@ const MainLayout = () => {
           </Link>
         </div>
       </nav>
-
+      {/* Backdrop Overlay for Mobile */}
+      {collapsed === false && window.innerWidth < 768 && (
+        <div
+          className="sidebar-backdrop"
+          onClick={() => setCollapsed(true)}
+        ></div>
+      )}
       {/* Sidebar + Main Content */}
       <div className="d-flex main-div-height" style={{ overflow: "hidden" }}>
         {/* Sidebar */}
@@ -62,11 +73,13 @@ const MainLayout = () => {
           className={`bg-dark text-white border-end sidebar ${
             collapsed ? "sidebar-collapsed" : ""
           }`}
-          style={{ height: "100vh" }}
+          style={{ height: "88vh" }}
         >
           <div className="list-group list-group-flush">
             <Link
+
               to="/"
+              onClick={handleMenuClick}
               className="list-group-item list-group-item-action bg-dark text-white"
             >
               <i className="bi bi-speedometer2 me-2"></i>Dashboard
@@ -103,6 +116,7 @@ const MainLayout = () => {
             </Link> */}   
             <Link
               to="/item-inward"
+              onClick={handleMenuClick}
               className="list-group-item list-group-item-action bg-dark text-white"
             >
               <i className="bi bi-hdd-stack me-2"></i> Item Inward
@@ -110,6 +124,7 @@ const MainLayout = () => {
 
             <Link
               to="/addItemInward"
+              onClick={handleMenuClick}
               className="list-group-item list-group-item-action bg-dark text-white"
             >
               <i className="bi bi-hdd-stack me-2"></i> Item Inward New
@@ -117,14 +132,15 @@ const MainLayout = () => {
 
             <Link
               to="/add_delChallan"
+              onClick={handleMenuClick}
               className="list-group-item list-group-item-action bg-dark text-white"
             >
               <i className="bi bi-hdd-stack me-2"></i> Delivery Challan
             </Link>
-            <Link to="/supplier-master" className="list-group-item list-group-item-action bg-dark text-white">
+            <Link to="/supplier-master" onClick={handleMenuClick} className="list-group-item list-group-item-action bg-dark text-white">
               <i className="bi bi-hdd-stack me-2"></i>  Supplier Master
             </Link>
-            <Link to="/customer-master" className="list-group-item list-group-item-action bg-dark text-white">
+            <Link to="/customer-master" onClick={handleMenuClick} className="list-group-item list-group-item-action bg-dark text-white">
               <i className="bi bi-hdd-stack me-2"></i>  Customer Master
             </Link>
             {/* <Link
