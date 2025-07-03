@@ -45,3 +45,12 @@
     transform: translateX(-100%);
   }
 }
+.sidebar-backdrop {
+  position: fixed;
+  top: 56px; /* height of your navbar */
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 56px);
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1040; /* less than sidebar z-index (1050) */
+}

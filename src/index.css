@@ -22,6 +22,9 @@ Link {
 .modal-content{
   margin-top: 100px;
 }
+footer{
+  z-index: 1060;
+}
 }
 
 /* Container for the sidebar and main content */
@@ -1007,4 +1010,13 @@ footer {
 .custom-breadcrum-link{
   /* border-bottom: 1px solid ; */
   color: #0056b3;
+}
+
+/* @media(min-width:993px)and(max-width:1300px){
+} */
+
+@media(max-width:992px){
+  .add-dashboard-container{
+    height: 100%;
+  }
 }

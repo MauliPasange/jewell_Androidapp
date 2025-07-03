@@ -8,13 +8,12 @@ import { Link } from 'react-router-dom'
 
 const Dashboard = () => {
 
-
   return (
     <div className="add-dashboard-container py-4">
      <p style={{fontSize:"22px", fontWeight:"700",marginLeft:"30px", color:"#0986a7"}}><img src={user} height={40} width={40}></img> Admin DashBoard</p>
       <div className="container">
         <div className="row g-4">
-          <div className="col-lg-3">
+          <div className="col-lg-4 col-xl-3">
             <Link to={'/Pending-req'} style={{ textDecoration: 'none', color: 'inherit' }}>
             <div className="dashboard-card d-flex justify-content-between align-items-center">
               <div>
@@ -25,7 +24,7 @@ const Dashboard = () => {
             </div>
             </Link>
           </div>
-          <div className="col-lg-3">
+          <div className="col-lg-4 col-xl-3">
              <Link to={'/Pending-req'} style={{ textDecoration: 'none', color: 'inherit' }}>
              <div className="dashboard-card d-flex justify-content-between align-items-center">
               <div>
@@ -36,7 +35,7 @@ const Dashboard = () => {
             </div>
             </Link>
           </div>
-          <div className="col-lg-3">
+          <div className="col-lg-4 col-xl-3">
              <Link to={'/Pending-req'} style={{ textDecoration: 'none', color: 'inherit' }}>
              <div className="dashboard-card d-flex justify-content-between align-items-center">
               <div>
@@ -47,7 +46,7 @@ const Dashboard = () => {
             </div>
             </Link>
           </div>
-           <div className="col-lg-3">
+           <div className="col-lg-4 col-xl-3">
              <Link to={'/Pending-req'} style={{ textDecoration: 'none', color: 'inherit' }}>
              <div className="dashboard-card d-flex justify-content-between align-items-center">
               <div>
