@@ -47,7 +47,7 @@ import AddItemInward from "./pages/AddItemInwardNew";
   sessionStorage.setItem('Base_URL', Base_URL);
 function App() {
   return (
-    <BrowserRouter basename="/jewell">
+    <BrowserRouter basename="/jewell/">
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Dashboard />} />
