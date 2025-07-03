@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import "./Sidebar.css";
 import "../components/Footer";
 import Footer from "../components/Footer";
+import dash from '../assets/img/dash.png'
+import ad from '../assets/img/item.png'
+import house from '../assets/img/house.png'
 
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -43,7 +46,9 @@ const MainLayout = () => {
             className="btn btn-outline-light me-3"
             onClick={toggleSidebar}
           >
-            <i className="bi bi-list"></i>
+            {/* <i className="bi bi-list"></i> */}
+                          <img src={house} height={20} width={20}></img>
+            
           </button>
 
           <Link className="navbar-brand me-auto d-none d-sm-inline" to="/">
@@ -81,8 +86,9 @@ const MainLayout = () => {
               to="/"
               onClick={handleMenuClick}
               className="list-group-item list-group-item-action bg-dark text-white"
-            >
-              <i className="bi bi-speedometer2 me-2"></i>Dashboard
+            > 
+              {/* <i className="bi bi-speedometer2 me-2"></i>Dashboard */}
+              <img src={dash} height={20} width={20} className="me-2"></img>Dashboard
             </Link>
             {/* <Link to="/admin" className="list-group-item list-group-item-action bg-dark text-white">
               <i className="bi bi-person me-2"></i>Admin
@@ -114,35 +120,35 @@ const MainLayout = () => {
             <Link to="/item-color-master" className="list-group-item list-group-item-action bg-dark text-white">
               <i className="bi bi-box me-2"></i> Item Color Master
             </Link> */}   
-            <Link
+            {/* <Link
               to="/item-inward"
               onClick={handleMenuClick}
               className="list-group-item list-group-item-action bg-dark text-white"
             >
               <i className="bi bi-hdd-stack me-2"></i> Item Inward
-            </Link>
+            </Link> */}
 
             <Link
               to="/addItemInward"
               onClick={handleMenuClick}
               className="list-group-item list-group-item-action bg-dark text-white"
             >
-              <i className="bi bi-hdd-stack me-2"></i> Item Inward New
+             <img src={ad} height={24} width={24} className="me-2"></img> Item Inward New
             </Link>
 
-            <Link
+            {/* <Link
               to="/add_delChallan"
               onClick={handleMenuClick}
               className="list-group-item list-group-item-action bg-dark text-white"
             >
               <i className="bi bi-hdd-stack me-2"></i> Delivery Challan
-            </Link>
-            <Link to="/supplier-master" onClick={handleMenuClick} className="list-group-item list-group-item-action bg-dark text-white">
+            </Link> */}
+            {/* <Link to="/supplier-master" onClick={handleMenuClick} className="list-group-item list-group-item-action bg-dark text-white">
               <i className="bi bi-hdd-stack me-2"></i>  Supplier Master
             </Link>
             <Link to="/customer-master" onClick={handleMenuClick} className="list-group-item list-group-item-action bg-dark text-white">
               <i className="bi bi-hdd-stack me-2"></i>  Customer Master
-            </Link>
+            </Link> */}
             {/* <Link
               to="/add-voucher"
               className="list-group-item list-group-item-action bg-dark text-white"

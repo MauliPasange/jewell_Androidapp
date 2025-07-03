@@ -31,14 +31,15 @@ import AllSuppliers from "./pages/AllSuppliers";
 import CustomerMaster from "./pages/CustomerMaster";
 import AllCustomers from "./pages/AllCustomers";
 import AddItemInward from "./pages/AddItemInwardNew";
+import AllProducts from "./pages/AllProduct";
 
 
   // local Url
-  const Base_URL='http://localhost:5000'  // my local setup
-  // const Base_URL = 'http://192.168.0.139:5000' //network server
+ //const Base_URL='http://localhost:5000'  // my local setup
+   //const Base_URL = 'http://192.168.0.139:5000' //network server
 
   // Production url
-  //const Base_URL='https://midbserver.co.in:5001'
+  const Base_URL='https://midbserver.co.in:5001'
 
   //Auth api key
   const authApi_Key = "b986ce110c4e7c523882db76b5rft124"
@@ -74,6 +75,7 @@ function App() {
           <Route path="all-customers" element={<AllCustomers />} />
 
           <Route path="addItemInward" element={<AddItemInward />} />
+          <Route path="allProduct" element={<AllProducts/>} />
 
         </Route>
 

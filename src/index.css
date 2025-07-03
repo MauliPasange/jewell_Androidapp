@@ -407,7 +407,7 @@ textarea::placeholder {
 
 /* Styling for component heading */
 .ComponentHeading {
-  margin-top: 10px;
+  margin-top: -8px;
   color: #0f4c53;
   font-size: 18px;
   font-weight: 500;

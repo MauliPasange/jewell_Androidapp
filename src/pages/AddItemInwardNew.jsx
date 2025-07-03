@@ -2,10 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { apiConfig } from "../../src/config";
-const shapes = [
-  { id: 1, name: "Oval", code: "O", abbr: "OVL" },
-  { id: 2, name: "Round", code: "R", abbr: "RND" },
-];
 
 const years = [
   { year: 2020, code: "A" },
@@ -197,77 +193,74 @@ useEffect(() => {
   };
 
 
-
-  const handleAutoGenerate = () => {
-    const yearCode =
-      years.find((y) => y.year === parseInt(form.year))?.code || "";
-
-      const selectedStone = stones.find(
-      (s) => s.jit_stone_id === parseInt(form.stone_id)
-    );
-    const stoneCode = selectedStone?.jit_stone_code || "";
-    const stoneAbbr = selectedStone?.jit_stone_abbr || "";
-    console.log("Stone",stoneCode , stoneAbbr);
-
-      const selectedShape = shapes.find(
-      (s) => s.jit_shape_id === parseInt(form.shape_id)
-    );
-    const shapeCode = selectedShape?.jit_shape_code || "";
-    const shapeAbbr = selectedShape?.jit_shape_abbr || "";
-    console.log("Shape",shapeCode , shapeAbbr);
-
+const handleAutoGenerate = async () => {
   
-    const serial = "001"; // You can replace this by calling backend to get next serial
-    const sku = `${yearCode}${stoneCode}${shapeCode}-${serial}`;
+  const yearEntry      = years.find((y) => y.year === parseInt(form.year));
+  const selectedStone  = stones.find((s) => s.jit_stone_id  === parseInt(form.stone_id));
+  const selectedShape  = shapes.find((s) => s.jit_shape_id  === parseInt(form.shape_id));
+  
+  if (!yearEntry || !selectedStone || !selectedShape) {
+    setMsg("Select Year, Stone and Shape first");
+    return;
+  }
 
-    const labelDesc = `${stoneAbbr} ${shapeAbbr}`.trim();
-
-    setForm((prev) => ({
-      ...prev,
-      sku_code: sku,
-      label_description: labelDesc,
-    }));
+  const payload = {
+    year        : form.year,
+    year_code   : yearEntry.code,
+    stone_id    : selectedStone.jit_stone_id,
+    stone_code  : selectedStone.jit_stone_code,
+    shape_id    : selectedShape.jit_shape_id,
+    shape_code  : selectedShape.jit_shape_code,
+    quantity    : form.quantity || 0,
+    manual_flag : "No",             // or "Yes" if you provide a checkbox
+    addedby     : form.addedby,
   };
+
+  try {
+    const res = await axios.post(`${Base_URL}/stone/generateSKU`, payload, {
+      headers: { "x-api-key": authApiKey }
+    });
+
+    // 🅾️ On success, fill SKU + label in the form
+    const { sku_code, message } = res.data;
+    setForm(prev => ({
+      ...prev,
+      sku_code,
+      label_description: `${selectedStone.jit_stone_abbr} ${selectedShape.jit_shape_abbr}`.trim()
+    }));
+    if (message) setMsg(message);
+  } catch (err) {
+    console.error("SKU generation failed:", err);
+    setMsg("SKU generation failed");
+  }
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       let imagePath = form.photo_path; // Already set if uploaded earlier
-
-      // If overlayed image is not yet uploaded
-      if (!imagePath && overlayedImage) {
-        const blob = await fetch(overlayedImage).then(res => res.blob());
-        const file = new File([blob], `${form.sku_code}.jpg`, { type: "image/jpeg" });
-
-        const uploadForm = new FormData();
-        uploadForm.append("files", file);
-
-        const uploadRes = await axios.post("http://localhost:5000/img/upload", uploadForm, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            "x-api-key": "b986ce110c4e7c523882db76b5rft124"
-          }
-        });
-
-        if (uploadRes.data.paths && uploadRes.data.paths.length > 0) {
-          imagePath = uploadRes.data.paths[0];
-        } else {
-          throw new Error("Image upload failed");
-        }
+      const finalPayload = {
+        "sku_code": form.sku_code,
+        "stone_id": form.stone_id,
+        "shape_id": form.shape_id,
+        "year": form.year,
+        "color": form.color,
+        "description": form.description,
+        "label_description":form.label_description,
+        "size": form.size,
+        "units": form.units,
+        "quantity": form.quantity,
+        "location": form.location,
+        "cost_code": form.cost_code,
+        "sale_code": form.sale_code,
+        "photo_path": imagePath,
+        "addedby": 1
       }
-
-      // Prepare final form data with uploaded image path
-      const finalForm = new FormData();
-      for (let key in form) {
-        if (key !== "photo_path") finalForm.append(key, form[key]);
-      }
-      finalForm.append("photo_path", imagePath);
 
       // 🔁 Call your Item Inward API (example URL below)
-      const res = await axios.post("http://localhost:5000/api/item-inward", finalForm, {
+      const res = await axios.post(`${Base_URL}/stone/addItemInward`, finalPayload, {
         headers: {
-          "Content-Type": "multipart/form-data",
           "x-api-key": "b986ce110c4e7c523882db76b5rft124"
         }
       });
@@ -290,6 +283,7 @@ useEffect(() => {
           sale_code: "",
           photo_path: "",
           addedby: 1,
+          imagePath:""
         });
         setPhotoPreview(null);
         setOverlayedImage(null);
@@ -310,12 +304,12 @@ useEffect(() => {
         <Link to="/" className="link-style">
           <span className="link-text">Home</span>
         </Link>
-        <Link to="/item-inward-list" className="link-style">
+        <Link to="/allProduct" className="link-style">
           <i className="bi bi-dot link-icon"></i>
-          <span className="link-text">All Items</span>
+          <span className="link-text"> All Items</span>
         </Link>
         <span style={{ color: "gray" }}>
-          <i className="bi bi-dot"></i>Item Inward
+          <i className="bi bi-dot"></i> Item Inward
         </span>
       </div>
 
@@ -329,7 +323,7 @@ useEffect(() => {
         <form className="scrollable-form" onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-md-4 mb-1">
-              <label>Year of Purchase *</label>
+              <label>Year of Purchase  <span className="required-star">*</span></label>
               <select
                 name="year"
                 className="form-control"
@@ -347,7 +341,7 @@ useEffect(() => {
             </div>
 
             <div className="col-md-4 mb-1">
-              <label>Stone Name *</label>
+              <label>Stone Name <span className="required-star">*</span></label>
               <select
                 name="stone_id"
                 className="form-control"
@@ -365,7 +359,7 @@ useEffect(() => {
             </div>
 
             <div className="col-md-4 mb-1">
-              <label>Shape *</label>
+              <label>Shape  <span className="required-star">*</span></label>
               <select
                 name="shape_id"
                 className="form-control"
@@ -393,7 +387,7 @@ useEffect(() => {
               />
               <button
                 type="button"
-                className="btn btn-sm btn-secondary mt-1"
+                className="custom-btn-primary mt-1" style={{padding:"3px",fontSize:"14px"}}
                 onClick={handleAutoGenerate}
               >
                 Generate SKU
@@ -411,16 +405,7 @@ useEffect(() => {
               />
             </div>
 
-            <div className="col-md-4 mb-1">
-              <label>Label Description</label>
-              <input
-                type="text"
-                name="label_description"
-                className="form-control"
-                value={form.label_description}
-                readOnly
-              />
-            </div>
+            
 
             <div className="col-md-4 mb-1">
               <label>Description</label>
@@ -432,6 +417,16 @@ useEffect(() => {
               />
             </div>
 
+            <div className="col-md-4 mb-1">
+              <label>Label Description</label>
+              <input
+                type="text"
+                name="label_description"
+                className="form-control"
+                value={form.label_description}
+                readOnly
+              />
+            </div>
             <div className="col-md-4 mb-1">
               <label>Size</label>
               <input
@@ -458,7 +453,7 @@ useEffect(() => {
             </div>
 
             <div className="col-md-4 mb-1">
-              <label>Quantity *</label>
+              <label>Quantity  <span className="required-star">*</span></label>
               <input
                 type="number"
                 step="0.01"
@@ -504,12 +499,13 @@ useEffect(() => {
             </div>
 
             <div className="col-md-4 mb-1">
-              <label>Upload Photo</label>
+              <label>Upload Photo  <span className="required-star">*</span></label>
               <input
                 type="file"
                 name="photo_path"
                 accept="image/*"
                 className="form-control"
+                required
                 // onChange={handleChange}
                 onChange={(e) => {
                   const file = e.target.files[0];
