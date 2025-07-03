@@ -176,10 +176,10 @@ useEffect(() => {
     formData.append("files", file);
 
     try {
-      const res = await axios.post("http://localhost:5000/img/upload", formData, {
+      const res = await axios.post(`${Base_URL}/img/upload`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          "x-api-key": "b986ce110c4e7c523882db76b5rft124"
+          "x-api-key": `{${authApiKey}}`
         },
       });
 
@@ -261,7 +261,7 @@ const handleAutoGenerate = async () => {
       // 🔁 Call your Item Inward API (example URL below)
       const res = await axios.post(`${Base_URL}/stone/addItemInward`, finalPayload, {
         headers: {
-          "x-api-key": "b986ce110c4e7c523882db76b5rft124"
+          "x-api-key": `${authApiKey}`
         }
       });
 

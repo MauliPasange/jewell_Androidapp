@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React, { useState } from 'react';
 import d from '../assets/img/d.png';
 import { apiConfig } from "../config";
 
@@ -6,7 +6,7 @@ export default function ItemDetailsModal({ show, item, onClose }) {
     if (!show || !item) return null;
     const Base_URL = apiConfig.getBaseURL();
 
-const [previewImage, setPreviewImage] = useState(null);
+    const [previewImage, setPreviewImage] = useState(null);
 
     const imageFields = ['jit_photo_path'];
 
@@ -21,11 +21,11 @@ const [previewImage, setPreviewImage] = useState(null);
         jit_label_description: "Lable Description",
         jit_size: "Stone Size",
         jit_units: "Stone Unit",
-        jit_quantity: "Quantity",        
+        jit_quantity: "Quantity",
         jit_location: "Location",
         jit_cost_code: "Cost Code",
-        jit_sale_code: "Sale Code",     
-        jit_inward_date: "Date",     
+        jit_sale_code: "Sale Code",
+        jit_inward_date: "Date",
     };
 
     return (
@@ -88,28 +88,28 @@ const [previewImage, setPreviewImage] = useState(null);
                             <button className="custom-btn-primary" onClick={onClose}>Close</button>
                         </div>
                         {previewImage && (
-  <div
-    className="modal show fade d-block"
-    tabIndex="-1"
-    style={{ backgroundColor: 'rgba(15, 15, 15, 0.56)' }}
-    onClick={() => setPreviewImage(null)} // Close on click
-  >
-    <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-      <img
-        src={previewImage}
-        alt="Preview"
-        style={{
-          maxHeight: '95%',
-          maxWidth: '95%',
-          boxShadow: '0 0 10px white',
-          borderRadius: '8px',
-          cursor: 'pointer'
-        }}
-        onClick={(e) => e.stopPropagation()} // Prevent closing on image click
-      />
-    </div>
-  </div>
-)}
+                            <div
+                                className="modal show fade d-block"
+                                tabIndex="-1"
+                                style={{ backgroundColor: 'rgba(15, 15, 15, 0.56)' }}
+                                onClick={() => setPreviewImage(null)} // Close on click
+                            >
+                                <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+                                    <img
+                                        src={previewImage}
+                                        alt="Preview"
+                                        style={{
+                                            maxHeight: '95%',
+                                            maxWidth: '95%',
+                                            boxShadow: '0 0 10px white',
+                                            borderRadius: '8px',
+                                            cursor: 'pointer'
+                                        }}
+                                        onClick={(e) => e.stopPropagation()} // Prevent closing on image click
+                                    />
+                                </div>
+                            </div>
+                        )}
 
                     </div>
                 </div>
