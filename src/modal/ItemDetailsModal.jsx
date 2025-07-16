@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import d from '../assets/img/d.png';
 import { apiConfig } from "../config";
+import { jsPDF } from "jspdf";
 
 export default function ItemDetailsModal({ show, item, onClose }) {
     if (!show || !item) return null;
@@ -16,8 +17,8 @@ export default function ItemDetailsModal({ show, item, onClose }) {
         jit_shape_name: "Shape Name",
         jit_sku_code: "SKU code",
         jit_year: "Year",
-        jit_color: "Color",
-        jit_description: "Description",
+       // jit_color: "Color",
+       
         jit_label_description: "Lable Description",
         jit_size: "Stone Size",
         jit_units: "Stone Unit",
@@ -26,7 +27,94 @@ export default function ItemDetailsModal({ show, item, onClose }) {
         jit_cost_code: "Cost Code",
         jit_sale_code: "Sale Code",
         jit_inward_date: "Date",
+         jit_description: "Description"
     };
+
+
+const handleDownloadPdf = () => {
+  const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+
+  const imageUrl = `${Base_URL}${item.jit_photo_path}`;
+  const marginX = 10;
+  let currentY = 15;
+  const pageWidth = 210;
+  const imageWidth = 100;
+  const imageHeight = 80;
+  const lineHeight = 9;
+
+  const drawContent = (imageLoaded) => {
+    // Border
+    doc.setDrawColor(74, 130, 150);
+    doc.setLineWidth(0.3);
+    doc.rect(5, 5, 200, 287); // Full A4 with margin
+
+    // Header Text Centered
+    const headerText = `Stone Name: ${item.jit_stone_name}  |  SKU Code: ${item.jit_sku_code}`;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(14);
+    doc.setTextColor(74, 130, 150);
+    const textWidth = doc.getTextWidth(headerText);
+    const centerX = (pageWidth - textWidth) / 2;
+    doc.text(headerText, centerX, currentY);
+    currentY += 6;
+
+    // Reset font color
+    doc.setTextColor(0, 0, 0);
+
+    // Draw image
+    if (imageLoaded) {
+      doc.addImage(img, 'JPEG', (pageWidth - imageWidth) / 2, currentY, imageWidth, imageHeight);
+      currentY += imageHeight + 10;
+    }
+
+    // Text content — one field per line
+    doc.setFontSize(12);
+    const fields = {
+      "Stone Name": item.jit_stone_name,
+      "SKU Code": item.jit_sku_code,
+      "Date": item.jit_inward_date?.split(" ")[0],
+      "Shape Name": item.jit_shape_name,
+    //   "Color": item.jit_color,
+      "Stone Size": item.jit_size,
+      "Stone Unit": item.jit_units,
+      "Quantity": item.jit_quantity,
+      "Cost Code": item.jit_cost_code,
+      "Sale Code": item.jit_sale_code,
+      "Description": item.jit_description,
+      "Label Description": item.jit_label_description,
+      "Location": item.jit_location,
+    };
+
+    Object.entries(fields).forEach(([label, value]) => {
+      if (value) {
+        doc.text(`${label}: ${value}`, marginX, currentY);
+        currentY += lineHeight;
+      }
+    });
+
+    // Optional footer
+    doc.setFontSize(10);
+    doc.setTextColor(120);
+    const now = new Date().toLocaleDateString();
+    doc.text(`Generated on: ${now}`, marginX, 287 - 10);
+
+    // Save file
+    doc.save(`Item-${item.jit_sku_code}.pdf`);
+  };
+
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.src = imageUrl;
+  img.onload = () => drawContent(true);
+  img.onerror = () => {
+    console.warn("Image failed to load, continuing without it.");
+    drawContent(false);
+  };
+};
+
+// ------------------------------------------------------------------------
+
+
 
     return (
         <div
@@ -86,6 +174,10 @@ export default function ItemDetailsModal({ show, item, onClose }) {
 
                         <div className="text-center mt-3">
                             <button className="custom-btn-primary" onClick={onClose}>Close</button>
+
+                            <button className="custom-btn-primary" onClick={handleDownloadPdf}>
+                                Download PDF
+                            </button>
                         </div>
                         {previewImage && (
                             <div

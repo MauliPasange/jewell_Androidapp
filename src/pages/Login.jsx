@@ -15,8 +15,8 @@ export default function Login() {
 
   // const authApiKey = sessionStorage.getItem("authApiKey") || "b986ce110c4e7c523882db76b5rft124";
 
-const Base_URL = apiConfig.getBaseURL();
-const authApiKey = apiConfig.getApiKey();
+  const Base_URL = apiConfig.getBaseURL();
+  const authApiKey = apiConfig.getApiKey();
 
 
   const handleSubmit = async (e) => {
@@ -41,10 +41,10 @@ const authApiKey = apiConfig.getApiKey();
         return;
       }
 
-        if (!Base_URL || !authApiKey) {
-      setMsg("Configuration missing. Please refresh or contact support.");
-      return;
-    }
+      if (!Base_URL || !authApiKey) {
+        setMsg("Configuration missing. Please refresh or contact support.");
+        return;
+      }
       const payload = {
         one: username,
         two: password,
@@ -59,7 +59,7 @@ const authApiKey = apiConfig.getApiKey();
 
       if (response.status === 200) {
         const data = response.data;
-         data.portal_id = data.permission_id;
+        data.portal_id = data.permission_id;
         // Store essential info in sessionStorage
         sessionStorage.setItem("em_id", data.em_id);
         sessionStorage.setItem("portal_id", data.portal_id);
@@ -85,7 +85,20 @@ const authApiKey = apiConfig.getApiKey();
   };
 
   return (
-    <div style={{ background: "#f4f7fa", height: "100vh", display: "flex" }}>
+    <div
+      className="login-page-wrapper"
+      style={{
+        backgroundImage: `url(${Img_1})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+
       <div
         className="row mx-auto custom-login"
         style={{

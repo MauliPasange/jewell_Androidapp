@@ -14,18 +14,26 @@ html {
 Link {
   text-decoration: none;
 }
-/* login */
-@media(max-width:576px){
-.custom-login{
-  width: 90% !important;
+
+
+/* Login Styling start here   "../images/img-3.jpg"   */
+@media (max-width: 576px) {
+  .custom-login {
+    width: 90% !important;
+    background-color: rgba(255, 255, 255, 0.85); /* white semi-transparent card */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+  }
+
+  /* Hide right image column */
+  .custom-login .col-md-6:nth-child(2) {
+    display: none;
+  }
 }
-.modal-content{
-  margin-top: 100px;
-}
-footer{
-  z-index: 1060;
-}
-}
+
+
+/* Login Styling ends here */
+
 
 /* Container for the sidebar and main content */
 .assign-menu-container {
